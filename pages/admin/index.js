@@ -11,9 +11,9 @@ const Index = () => {
 
     return (
         <div className={styles.admin_dashboard}>
+            <div> <h1 className={styles.dashboard_heading}>Welcome to the Admin Dashboard</h1> </div> 
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.HOME} />
             
-            <h1 className={styles.dashboard_heading}>Welcome to the Admin Dashboard</h1>
             
 
             <div className={styles.admin_dashboard_content}>
