@@ -14,7 +14,8 @@
 
 
 .dashboard_heading {
-    padding-top: 60px;
+    font-size: 40px;
+    padding-top: 65px;
     text-align: center;
 }
 
@@ -37,6 +38,8 @@
 
 .navigation_bar_item>a {
     color: white;
+    font-weight: bolder;
+    font-size: larger;
 }
 
 .active_navigation_bar_item>a {
@@ -57,27 +60,53 @@
     justify-content: center;
     column-gap: 20px;
     margin: auto;
-    margin-bottom: 20%;
+    width: 100%;
 }
 
 
-.progress_bar_container {
-    background-color: pink;
+.admin_players_content {
+    width: 30%;
+    min-width: max-content;
+    height: max-content;
+    padding: 30px;
+    border: 1px solid #558680;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(2, 2, 2, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 5px;
 }
 
-.progress_bar_completed {
-    background-color: lightblue;
-    width: 80%;
+.admin_player_input_label {
+    font-size: larger;
+    padding: 10px;
+    text-align: center;
 }
 
-.progress_bar_label {
-    font-size: 20px;
-    color: green;
+.admin_player_input {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    text-align: center;
+    outline: none;
+    border: 1px solid #18dbc8;
 }
 
+.admin_player_button {
+    padding: 6px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 1px solid #18dbc8;
+}
 
-
-
+.progress h3 {
+    padding: 20px;
+}
 
 /* mobile screen */
 @media only screen and (max-width: 768px) {

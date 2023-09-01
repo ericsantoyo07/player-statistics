@@ -133,18 +133,21 @@ const Players = () => {
 
     return (
         <div className={styles.admin_dashboard}>
+            <div> <h1 className={styles.dashboard_heading}>Update Players Data</h1> </div> 
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.PLAYERS} />
             <div className={styles.admin_dashboard_content}>
-                <h3 className={styles.dashboard_heading}>{"Admin > players"}</h3>
 
                 <div className={styles.admin_players_content}>
-
-                    <div className={styles.admin_player_input_container}>
-                        <p className={styles.admin_player_input_label}>Starting Index</p>
-                        <input className={styles.admin_player_input} placeholder="starting index" value={startingIndex} onChange={handleStartingIndexChange} />
-                        <p className={styles.admin_player_input_label}>Ending Index</p>
-                        <input className={styles.admin_player_input} placeholder="ending index" value={endingIndex} onChange={handleEndingIndexChange} />
-                    </div>
+                    {
+                        (currentState === ADMIN_PLAYER_REQUEST_STATUS.IDLE) &&
+                        <div className={styles.admin_player_input_container}>
+                            <p className={styles.admin_player_input_label}>Starting Index</p>
+                            <input className={styles.admin_player_input} placeholder="starting index" value={startingIndex} onChange={handleStartingIndexChange} />
+                            <p className={styles.admin_player_input_label}>Ending Index</p>
+                            <input className={styles.admin_player_input} placeholder="ending index" value={endingIndex} onChange={handleEndingIndexChange} />
+                        </div>
+                    }
+                   
 
 
 
@@ -154,12 +157,12 @@ const Players = () => {
                         <div className={styles.progress}>
 
                             <h3>
-                                {`completed ${currentIndex - startingIndex} of ${endingIndex - startingIndex} requests`}
+                                {`Completed ${currentIndex - startingIndex} of ${endingIndex - startingIndex} requests`}
                             </h3>
                             <ProgressBar
                                 completed={parseInt(progressPercentage)}
                                 customLabel={`${parseInt(progressPercentage)}` + "%"}
-                                bgColor="#1e90ff"
+                                    bgColor="#558680"
                             />
                         </div>
                     }
