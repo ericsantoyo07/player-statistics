@@ -60,22 +60,14 @@ const Players = () => {
     async function fetchData(playerId) {
         const baseUrl = 'https://api-fantasy.llt-services.com';
         const endpoint = `/api/v3/player/${playerId}?x-lang=en`;
-        const url = `${baseUrl}${endpoint}`;
-        const headers = {
-            'Accept': 'application/json',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Cache-Control': 'max-age=0',
-            'Sec-Fetch-Dest': 'document',
-            'Sec-Fetch-Mode': 'navigate',
-            'Sec-Fetch-Site': 'none',
-            'Sec-Fetch-User': '?1',
-            'Upgrade-Insecure-Requests': '1',
 
-        };
+        
+        const url = `https://nextjs-cors-anywhere.vercel.app/api?endpoint=${baseUrl}${endpoint}`;
+
+       
 
         try {
-            const response = await fetch(url, { method: 'GET', headers });
+            const response = await fetch(url, { method: 'GET' });
 
             if (response.status === 404) {
                 return null;
@@ -96,6 +88,7 @@ const Players = () => {
     async function getPlayers() {
         for (let playerId = currentIndex; playerId < endingIndex; playerId++) {
             const data = await fetchData(playerId);
+            setCurrentIndex(playerId);
             if (data) {
                 console.log(data);
                 console.log("Player name: " + data.name);
@@ -116,7 +109,7 @@ const Players = () => {
         if (currentState === ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS) {
             getPlayers();
         }
-    }, [currentIndex, endingIndex, currentState]);
+    }, [currentState]);
 
 
 
@@ -147,8 +140,8 @@ const Players = () => {
                         {
                             (currentState === ADMIN_PLAYER_REQUEST_STATUS.IDLE) ?
                                 <button className={styles.admin_player_button} onClick={() => {
-                                    setCurrentState(ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS);
                                     setCurrentIndex(startingIndex);
+                                    setCurrentState(ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS);
                                 }}>Start</button>
                                 :
                                 <button className={styles.admin_player_button} onClick={async () => {
