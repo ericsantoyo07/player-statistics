@@ -60,6 +60,25 @@
     margin-bottom: 20%;
 }
 
+
+.progress_bar_container {
+    background-color: pink;
+}
+
+.progress_bar_completed {
+    background-color: lightblue;
+    width: 80%;
+}
+
+.progress_bar_label {
+    font-size: 20px;
+    color: green;
+}
+
+
+
+
+
 /* mobile screen */
 @media only screen and (max-width: 768px) {
     .admin_dashboard {
@@ -84,7 +103,7 @@
     }
 
     .admin_page_card {
-        
+
         width: 80%;
     }
 }

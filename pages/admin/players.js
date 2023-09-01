@@ -4,7 +4,7 @@ import AdminNavigationBar from '@/components/AdminNavigationBar'
 import { ADMIN_NAVIGATION_ITEMS, ADMIN_PLAYER_REQUEST_STATUS } from '@/utils/types'
 import { useEffect } from 'react'
 import { useState } from 'react'
-
+import ProgressBar from "@ramonak/react-progress-bar";
 
 const Players = () => {
 
@@ -13,6 +13,9 @@ const Players = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentState, setCurrentState] = useState(ADMIN_PLAYER_REQUEST_STATUS.IDLE);
+
+
+    const [progressPercentage, setProgressPercentage] = useState(0);
 
     const handleStartingIndexChange = (e) => {
 
@@ -61,10 +64,10 @@ const Players = () => {
         const baseUrl = 'https://api-fantasy.llt-services.com';
         const endpoint = `/api/v3/player/${playerId}?x-lang=en`;
 
-        
+
         const url = `https://nextjs-cors-anywhere.vercel.app/api?endpoint=${baseUrl}${endpoint}`;
 
-       
+
 
         try {
             const response = await fetch(url, { method: 'GET' });
@@ -109,7 +112,20 @@ const Players = () => {
         if (currentState === ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS) {
             getPlayers();
         }
+
     }, [currentState]);
+
+
+    useEffect(() => {
+        if (currentState === ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS) {
+            const percentage = Math.round(((currentIndex - startingIndex) / (endingIndex - startingIndex)) * 100);
+            setProgressPercentage(percentage);
+        }
+        else {
+            setProgressPercentage(0);
+        }
+    }, [currentIndex, currentState]);
+
 
 
 
@@ -130,10 +146,21 @@ const Players = () => {
                         <input className={styles.admin_player_input} placeholder="ending index" value={endingIndex} onChange={handleEndingIndexChange} />
                     </div>
 
+
+
+
                     {
                         (currentState === ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS) &&
-                        <div className={styles.status_container}>
-                            <p className={styles.status_label}> Currently getting player for index: {currentIndex} </p>
+                        <div className={styles.progress}>
+
+                            <h3>
+                                {`completed ${currentIndex - startingIndex} of ${endingIndex - startingIndex} requests`}
+                            </h3>
+                            <ProgressBar
+                                completed={parseInt(progressPercentage)}
+                                customLabel={`${parseInt(progressPercentage)}` + "%"}
+                                bgColor="#1e90ff"
+                            />
                         </div>
                     }
                     <div className={styles.admin_player_button_container}>
