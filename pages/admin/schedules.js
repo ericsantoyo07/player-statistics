@@ -11,8 +11,6 @@ const Schedules = () => {
             <div className={styles.admin_dashboard_content}>
                 <h3 className={styles.dashboard_heading}>{"Admin > schedules"}</h3>
             </div>
-
-
         </div>
     )
 
