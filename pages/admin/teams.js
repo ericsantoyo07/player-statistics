@@ -8,7 +8,7 @@ const Teams = () => {
         <div className={styles.admin_dashboard}>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.TEAMS} />
             <div className={styles.admin_dashboard_content}>
-                <h1>Welcome to the Admin Dashboard - teams</h1>
+                <h1 className={styles.dashboard_heading}>Welcome to the Admin Dashboard</h1>
             </div>
         </div>
     )

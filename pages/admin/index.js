@@ -14,10 +14,12 @@ const Index = () => {
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.HOME} />
             <div className={styles.admin_dashboard_content}>
 
+                <h1 className={styles.dashboard_heading}>Welcome to the Admin Dashboard</h1>
+
                 <AdminPageCard item={ADMIN_NAVIGATION_ITEMS.PLAYERS} />
                 <AdminPageCard item={ADMIN_NAVIGATION_ITEMS.TEAMS} />
                 <AdminPageCard item={ADMIN_NAVIGATION_ITEMS.SCHEDULES} />
-                
+
             </div>
 
 

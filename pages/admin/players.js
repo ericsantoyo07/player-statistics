@@ -8,7 +8,7 @@ const Players = () => {
         <div className={styles.admin_dashboard}>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.PLAYERS} />
             <div className={styles.admin_dashboard_content}>
-                <h1>Welcome to the Admin Dashboard - players</h1>
+                <h1 className={styles.dashboard_heading}>Welcome to the Admin Dashboard</h1>
             </div>
         </div>
     )

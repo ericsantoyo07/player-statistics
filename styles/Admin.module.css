@@ -6,6 +6,11 @@
     display: flex;
 }
 
+.dashboard_heading {
+    text-align: center;
+    margin: 20px;
+}
+
 
 .navigation_bar {
     height: 100%;
