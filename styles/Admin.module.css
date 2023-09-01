@@ -54,6 +54,13 @@
         column-gap: 20px;
     }
 
+/* mobile screen */
+@media only screen and (max-width: 768px) {
+    .admin_dashboard {
+        height: max-content;
+        min-height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
     /* mobile screen */
     @media only screen and (max-width: 768px) {
         .admin_dashboard {
@@ -64,14 +71,14 @@
 
         }
 
-        .navigation_bar {
-            width: 100%;
-            height: max-content
-        }
-
-        .admin_dashboard_content {
-            flex: 1;
-            overflow-y: scroll;
-            background-color: blue;
-        }
+    .navigation_bar {
+        width: 100%;
+        height: max-content
     }
+
+    .admin_dashboard_content {
+        flex: 1;
+        overflow-y: scroll;
+        background-color: blue;
+    }
+}
