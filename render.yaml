@@ -1,14 +1,14 @@
 services:
 - type: web
-  name: next-js
+  name: player-statistics
   env: node
-  plan: starter
+  plan: free
   buildCommand: yarn; yarn build
   startCommand: yarn start
   autoDeploy: false
-  envVars:
-  - key: NODE_ENV
-    value: production
+  # envVars:
+  # - key: NODE_ENV
+  #   value: production
 # Uncomment the following to deploy this app as a static site on render
 # - type: web
 #   name: nextjs-static
