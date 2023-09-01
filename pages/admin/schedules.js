@@ -9,7 +9,7 @@ const Schedules = () => {
         <div className={styles.admin_dashboard}>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.SCHEDULES} />
             <div className={styles.admin_dashboard_content}>
-                <h1 className={styles.dashboard_heading}>Welcome to the Admin Dashboard</h1>
+                <h3 className={styles.dashboard_heading}>{"Admin > schedules"}</h3>
             </div>
 
 

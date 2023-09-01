@@ -48,19 +48,25 @@
     .admin_dashboard {
         height: max-content;
         min-height: 100%;
-        flex-direction: column-reverse;
+        flex-direction: column;
         justify-content: space-between;
 
     }
 
     .navigation_bar {
         width: 100%;
-        height: max-content
+        height: max-content;
+        display: flex;
+    }
+
+    .navigation_bar_item {
+        margin: 10px;
+        padding: 10px;
+        border: none;
     }
 
     .admin_dashboard_content {
         flex: 1;
         overflow-y: scroll;
-        background-color: blue;
     }
 }
