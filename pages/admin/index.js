@@ -12,9 +12,12 @@ const Index = () => {
     return (
         <div className={styles.admin_dashboard}>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.HOME} />
+            
+            <h1 className={styles.dashboard_heading}>Welcome to the Admin Dashboard</h1>
+            
+
             <div className={styles.admin_dashboard_content}>
 
-                <h1 className={styles.dashboard_heading}>Welcome to the Admin Dashboard</h1>
 
                 <AdminPageCard item={ADMIN_NAVIGATION_ITEMS.PLAYERS} />
                 <AdminPageCard item={ADMIN_NAVIGATION_ITEMS.TEAMS} />

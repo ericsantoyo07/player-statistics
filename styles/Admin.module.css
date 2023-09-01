@@ -4,63 +4,74 @@
     background-color: #2b2b2b;
     color: white;
     display: flex;
-}
-
-.dashboard_heading {
-    text-align: center;
-    margin: 20px;
-}
-
-
-.navigation_bar {
-    height: 100%;
-    width: 20%;
-    background-color: #2b2b2b;
-    border-right: 1px solid #00bfa6;
-}
-
-
-.navigation_bar_item {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #00bfa6;
-}
-
-.navigation_bar_item>a {
-    color: white;
-}
-
-.active_navigation_bar_item > a{
-    color: #00bfa6;
-}
-
-
-.admin_page_card {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #00bfa6;
+    flex-direction: column;
+    background-image: url(/bg.jpg);
+    background-size: 100% 30%;
+    background-repeat: no-repeat;
 }
 
 
 
-/* mobile screen */
-@media only screen and (max-width: 768px) {
-    .admin_dashboard {
-        height: max-content;
-        min-height: 100%;
-        flex-direction: column-reverse;
-        justify-content: space-between;
+
+    .dashboard_heading {
+        text-align: center;
+    }
+
+
+    .navigation_bar {
+        margin: auto;
+        margin-bottom: 0;
+        margin-top: 5%;
+        display: flex;
 
     }
 
-    .navigation_bar {
-        width: 100%;
-        height: max-content
+
+    .navigation_bar_item {
+
+        padding: 20px;
+
+    }
+
+    .navigation_bar_item>a {
+        color: white;
+    }
+
+    .active_navigation_bar_item>a {
+        color: #00bfa6;
+    }
+
+
+    .admin_page_card {
+        padding: 20px;
+        border: 1px solid #00bfa6;
     }
 
     .admin_dashboard_content {
-        flex: 1;
-        overflow-y: scroll;
-        background-color: blue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 20px;
     }
-}
+
+    /* mobile screen */
+    @media only screen and (max-width: 768px) {
+        .admin_dashboard {
+            height: max-content;
+            min-height: 100%;
+            flex-direction: column-reverse;
+            justify-content: space-between;
+
+        }
+
+        .navigation_bar {
+            width: 100%;
+            height: max-content
+        }
+
+        .admin_dashboard_content {
+            flex: 1;
+            overflow-y: scroll;
+            background-color: blue;
+        }
+    }
