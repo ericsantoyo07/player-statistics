@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from '@/styles/Admin.module.css'
-import AdminNavigationBar from '@/hooks/AdminNavigationBar'
+import AdminNavigationBar from '@/components/AdminNavigationBar'
 import { ADMIN_NAVIGATION_ITEMS } from '@/utils/types'
 
 const Teams = () => {

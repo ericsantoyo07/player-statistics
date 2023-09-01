@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import styles from '@/styles/Admin.module.css'
-import AdminNavigationBar from '@/hooks/AdminNavigationBar'
+import AdminNavigationBar from '@/components/AdminNavigationBar'
 import { ADMIN_NAVIGATION_ITEMS } from '@/utils/types'
+import AdminPageCard from '@/components/AdminPageCard'
 
 
 
@@ -12,7 +13,11 @@ const Index = () => {
         <div className={styles.admin_dashboard}>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.HOME} />
             <div className={styles.admin_dashboard_content}>
-                <h1>Welcome to the Admin Dashboard</h1>
+
+                <AdminPageCard item={ADMIN_NAVIGATION_ITEMS.PLAYERS} />
+                <AdminPageCard item={ADMIN_NAVIGATION_ITEMS.TEAMS} />
+                <AdminPageCard item={ADMIN_NAVIGATION_ITEMS.SCHEDULES} />
+                
             </div>
 
 
