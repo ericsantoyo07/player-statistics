@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '@/styles/Admin.module.css'
 import AdminNavigationBar from '@/components/AdminNavigationBar'
-import { ADMIN_NAVIGATION_ITEMS, ADMIN_PLAYER_REQUEST_STATUS } from '@/utils/types'
+import { ADMIN_NAVIGATION_ITEMS, ADMIN_REQUEST_STATUS } from '@/utils/types'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import ProgressBar from "@ramonak/react-progress-bar";
@@ -12,14 +12,14 @@ const Players = () => {
     const [endingIndex, setEndingIndex] = useState(1850);
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [currentState, setCurrentState] = useState(ADMIN_PLAYER_REQUEST_STATUS.IDLE);
+    const [currentState, setCurrentState] = useState(ADMIN_REQUEST_STATUS.IDLE);
 
 
     const [progressPercentage, setProgressPercentage] = useState(0);
 
     const handleStartingIndexChange = (e) => {
 
-        if (currentState === ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS) {
+        if (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) {
             return;
         }
         // Remove leading zeros and parse the input as an integer
@@ -40,7 +40,7 @@ const Players = () => {
 
     const handleEndingIndexChange = (e) => {
 
-        if (currentState === ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS) {
+        if (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) {
             return;
         }
 
@@ -97,7 +97,7 @@ const Players = () => {
                 console.log("Player name: " + data.name);
             }
         }
-        setCurrentState(ADMIN_PLAYER_REQUEST_STATUS.IDLE);
+        setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
     }
 
 
@@ -109,7 +109,7 @@ const Players = () => {
 
     // Call getPlayers when the component mounts or when currentIndex, endingIndex, or currentState change
     useEffect(() => {
-        if (currentState === ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS) {
+        if (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) {
             getPlayers();
         }
 
@@ -117,7 +117,7 @@ const Players = () => {
 
 
     useEffect(() => {
-        if (currentState === ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS) {
+        if (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) {
             const percentage = Math.round(((currentIndex - startingIndex) / (endingIndex - startingIndex)) * 100);
             setProgressPercentage(percentage);
         }
@@ -139,7 +139,7 @@ const Players = () => {
 
                 <div className={styles.admin_players_content}>
                     {
-                        (currentState === ADMIN_PLAYER_REQUEST_STATUS.IDLE) &&
+                        (currentState === ADMIN_REQUEST_STATUS.IDLE) &&
                         <div className={styles.admin_player_input_container}>
                             <p className={styles.admin_player_input_label}>Starting Index</p>
                             <input className={styles.admin_player_input} placeholder="starting index" value={startingIndex} onChange={handleStartingIndexChange} />
@@ -153,7 +153,7 @@ const Players = () => {
 
 
                     {
-                        (currentState === ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS) &&
+                        (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) &&
                         <div className={styles.progress}>
 
                             <h3>
@@ -168,14 +168,14 @@ const Players = () => {
                     }
                     <div className={styles.admin_player_button_container}>
                         {
-                            (currentState === ADMIN_PLAYER_REQUEST_STATUS.IDLE) ?
+                            (currentState === ADMIN_REQUEST_STATUS.IDLE) ?
                                 <button className={styles.admin_player_button} onClick={() => {
                                     setCurrentIndex(startingIndex);
-                                    setCurrentState(ADMIN_PLAYER_REQUEST_STATUS.IN_PROGRESS);
+                                    setCurrentState(ADMIN_REQUEST_STATUS.IN_PROGRESS);
                                 }}>Start</button>
                                 :
                                 <button className={styles.admin_player_button} onClick={async () => {
-                                    setCurrentState(ADMIN_PLAYER_REQUEST_STATUS.IDLE);
+                                    setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
                                     setCurrentIndex(startingIndex);
                                 }}>Cancel</button>
                         }
