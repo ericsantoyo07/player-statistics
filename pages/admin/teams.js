@@ -5,6 +5,7 @@ import { ADMIN_NAVIGATION_ITEMS, ADMIN_REQUEST_STATUS } from '@/utils/types'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import ProgressBar from "@ramonak/react-progress-bar";
+import { addTeams } from '@/database/functions'
 
 const Teams = () => {
 
@@ -40,12 +41,30 @@ const Teams = () => {
             }
 
             const data = await response.json();
-            console.log(data);
-            return data;
+            return data.teams;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
             return null;
         }
+    }
+
+    function formatTeams(data) {
+        let teams = [];
+
+        for (let i = 0; i < data.length; i++) {
+            const team = data[i];
+            const teamObject = {
+                teamID: parseInt(team.id),
+                name: team.name,
+                nickname: team.shortName,
+                image: team.badgeColor,
+            }
+            teams.push(teamObject);
+        }
+
+        return teams;
+
+        
     }
 
     async function getTeams() {
@@ -53,13 +72,17 @@ const Teams = () => {
 
         setProgressPercentage(25);
         await wait(500);
-        await fetchData();
         setProgressPercentage(50);
         await wait(500);
         setProgressPercentage(75);
         await wait(500);
         setProgressPercentage(98);
-        await wait(500);
+        
+        let data = await fetchData();
+        const teams = formatTeams(data);
+        console.log('teams', teams);
+        // adding teams to database
+        await addTeams(teams);
         setProgressPercentage(0);
         setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
     }
