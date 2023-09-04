@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useRouter } from 'next/router'
+import { addPlayers } from '@/database/functions'
 
 
 const Players = () => {
@@ -245,6 +246,8 @@ const Players = () => {
         const { players: playersData, stats: statsData } = splitPlayersData(players);
         console.log('players: ', playersData);
         console.log('stats: ', statsData);
+        //adding players to database
+        await addPlayers(playersData);
         setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
     }
 
