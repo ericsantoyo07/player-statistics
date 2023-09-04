@@ -68,7 +68,7 @@ const Players = () => {
         const endpoint = `/api/v3/player/${playerId}?x-lang=en`;
 
 
-        const url = `https://nextjs-cors-anywhere.vercel.app/api?endpoint=${baseUrl}${endpoint}`;
+        const url = `https://nextjs-cors-anywhere.vercel.app/api?endpoint=${baseUrl}${endpoint}?x-lang=en`;
 
 
 
@@ -87,11 +87,129 @@ const Players = () => {
         }
     }
 
+
+
+
+    function formatPlayerStats(statData, playerId){
+
+        const stats = [];
+
+        for(let i = 0; i < statData.length; i++){
+
+            const playerID = playerId;
+            const weekID = statData[i].weekNumber;
+            const totalPoints = statData[i].totalPoints;
+            const isInIdealFormation = statData[i].isInIdealFormation;
+            const mins_played = statData[i].stats.mins_played;
+            const goals = statData[i].stats.goals;
+            const goal_assist = statData[i].stats.goal_assist;
+            const offtarget_att_assist = statData[i].stats.offtarget_att_assist;
+            const pen_area_entries = statData[i].stats.pen_area_entries;
+            const penalty_won = statData[i].stats.penalty_won;
+            const penalty_save = statData[i].stats.penalty_save;
+            const saves = statData[i].stats.saves;
+            const effective_clearance = statData[i].stats.effective_clearance;
+            const penalty_failed = statData[i].stats.penalty_failed;
+            const own_goals = statData[i].stats.own_goals;
+            const goals_conceded = statData[i].stats.goals_conceded;
+            const yellow_card = statData[i].stats.yellow_card;
+            const second_yellow_card = statData[i].stats.second_yellow_card;
+            const red_card = statData[i].stats.red_card;
+            const total_scoring_att = statData[i].stats.total_scoring_att;
+            const won_contest = statData[i].stats.won_contest;
+            const ball_recovery = statData[i].stats.ball_recovery;
+            const poss_lost_all = statData[i].stats.poss_lost_all;
+            const penalty_conceded = statData[i].stats.penalty_conceded;
+            const marca_points = statData[i].stats.marca_points;
+
+
+            const statObject = {
+                playerID: playerID,
+                week: weekID,
+                totalPoints: totalPoints,
+                isInIdealFormation: isInIdealFormation,
+                mins_played: mins_played,
+                goals: goals,
+                goal_assist: goal_assist,
+                offtarget_att_assist: offtarget_att_assist,
+                pen_area_entries: pen_area_entries,
+                penalty_won: penalty_won,
+                penalty_save: penalty_save,
+                saves: saves,
+                effective_clearance: effective_clearance,  
+                penalty_failed: penalty_failed,
+                own_goals: own_goals,
+                goals_conceded: goals_conceded,
+                yellow_card: yellow_card,
+                second_yellow_card: second_yellow_card,
+                red_card: red_card,
+                total_scoring_att: total_scoring_att,
+                won_contest: won_contest,
+                ball_recovery: ball_recovery,
+                poss_lost_all: poss_lost_all,
+                penalty_conceded: penalty_conceded,
+                marca_points: marca_points
+            }
+            stats.push(statObject);
+
+        }
+
+        return stats;
+
+    }
+
+    function splitPlayersData(data) {
+        let players = [];
+        let allStatistics = [];
+
+
+        for (let i = 0; i < data.length; i++) {
+
+            let playerID = parseInt(data[i].id);
+            let averagePoints = data[i].averagePoints;
+            let marketValue = data[i].marketValue;
+            let name = data[i].name;
+            let nickname = data[i].nickname;
+            let position = data[i].position;
+            let positionID = data[i].positionId;
+            let status = data[i].playerStatus;
+            let teamID = data[i].team?.id ? parseInt(data[i].team.id) : null;
+
+
+            const player = {
+                playerID: playerID,
+                name: name,
+                nickname: nickname,
+                status: status,
+                position: position,
+                positionID: positionID,
+                marketValue: marketValue,
+                averagePoints: averagePoints,
+                teamID: teamID
+            }
+
+            const stats = formatPlayerStats(data[i].playerStats, playerID);
+
+
+
+            players.push(player);
+            allStatistics.push(...stats);
+        }
+
+
+        return {
+            players: players,
+            stats: allStatistics
+        }
+    }
+
     async function getPlayers() {
+        let players = [];
         for (let playerId = currentIndex; playerId < endingIndex; playerId++) {
             const data = await fetchData(playerId);
             setCurrentIndex(playerId);
             if (data) {
+                players.push(data);
                 console.log(data);
                 console.log("Player name: " + data.name);
             }
@@ -99,6 +217,10 @@ const Players = () => {
                 console.log("Player with id " + playerId + " not found");
             }
         }
+        // need to reformate players data
+        const { players: playersData, stats: statsData } = splitPlayersData(players);
+        console.log('players: ', playersData);
+        console.log('stats: ', statsData);
         setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
     }
 
