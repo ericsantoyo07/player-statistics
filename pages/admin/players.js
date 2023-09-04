@@ -90,11 +90,13 @@ const Players = () => {
 
 
 
-    function formatPlayerStats(statData, playerId){
+
+
+    function formatPlayerStats(statData, playerId) {
 
         const stats = [];
 
-        for(let i = 0; i < statData.length; i++){
+        for (let i = 0; i < statData.length; i++) {
 
             const playerID = playerId;
             const weekID = statData[i].weekNumber;
@@ -136,7 +138,7 @@ const Players = () => {
                 penalty_won: penalty_won,
                 penalty_save: penalty_save,
                 saves: saves,
-                effective_clearance: effective_clearance,  
+                effective_clearance: effective_clearance,
                 penalty_failed: penalty_failed,
                 own_goals: own_goals,
                 goals_conceded: goals_conceded,
@@ -158,6 +160,26 @@ const Players = () => {
 
     }
 
+
+    function findImage(imagesObject) {
+        // Iterate through each category in the images object
+        for (const category in imagesObject) {
+            // Iterate through each image URL in the category
+            for (const dimension in imagesObject[category]) {
+                const imageUrl = imagesObject[category][dimension];
+                // Check if the image URL contains "no-player.png"
+                if (!imageUrl.includes("no-player")) {
+                    // Found a real image, return its URL
+                    return imageUrl;
+                }
+            }
+        }
+        // No real image found, return an empty string
+        return "";
+    }
+
+
+
     function splitPlayersData(data) {
         let players = [];
         let allStatistics = [];
@@ -174,6 +196,7 @@ const Players = () => {
             let positionID = data[i].positionId;
             let status = data[i].playerStatus;
             let teamID = data[i].team?.id ? parseInt(data[i].team.id) : null;
+            let image = findImage(data[i].images);
 
 
             const player = {
@@ -185,7 +208,8 @@ const Players = () => {
                 positionID: positionID,
                 marketValue: marketValue,
                 averagePoints: averagePoints,
-                teamID: teamID
+                teamID: teamID,
+                image: image
             }
 
             const stats = formatPlayerStats(data[i].playerStats, playerID);
