@@ -177,6 +177,9 @@ const Schedules = () => {
                         {
                             (currentState === ADMIN_REQUEST_STATUS.IDLE) ?
                                 <button className={styles.admin_player_button} onClick={() => {
+                                    if(parseInt(startingIndex) >= parseInt(endingIndex)){
+                                        return;
+                                    }
                                     setCurrentIndex(startingIndex);
                                     setCurrentState(ADMIN_REQUEST_STATUS.IN_PROGRESS);
                                 }}>Start</button>

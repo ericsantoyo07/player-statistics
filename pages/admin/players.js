@@ -352,6 +352,9 @@ const Players = () => {
                         {
                             (currentState === ADMIN_REQUEST_STATUS.IDLE) ?
                                 <button className={styles.admin_player_button} onClick={() => {
+                                    if(parseInt(endingIndex) <= parseInt(startingIndex)){
+                                        return;
+                                    }
                                     setCurrentIndex(startingIndex);
                                     setCurrentState(ADMIN_REQUEST_STATUS.IN_PROGRESS);
                                 }}>Start</button>
