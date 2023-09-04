@@ -92,6 +92,30 @@ const Players = () => {
 
 
 
+    function filterDuplicateWeekStats(stats) {
+        // Create an object to store the last occurrence of each player ID and week combination
+        const lastStats = {};
+
+        // Iterate through the stats array in reverse order (to keep the last occurrence)
+        for (let i = stats.length - 1; i >= 0; i--) {
+            const stat = stats[i];
+            const playerID = stat.playerID;
+            const week = stat.week;
+            const key = playerID + '-' + week;
+
+            // Check if this combination of player ID and week has already been encountered
+            if (!lastStats[key]) {
+                // If not encountered, store it as the last occurrence
+                lastStats[key] = stat;
+            }
+        }
+
+        // Convert the values of the lastStats object back into an array
+        const filteredStats = Object.values(lastStats);
+
+        return filteredStats;
+    }
+
 
     function formatPlayerStats(statData, playerId) {
 
@@ -157,7 +181,8 @@ const Players = () => {
 
         }
 
-        return stats;
+        
+        return filterDuplicateWeekStats(stats);
 
     }
 
@@ -179,6 +204,8 @@ const Players = () => {
         return "";
     }
 
+
+   
 
 
     function splitPlayersData(data) {
@@ -214,6 +241,8 @@ const Players = () => {
             }
 
             const stats = formatPlayerStats(data[i].playerStats, playerID);
+
+
 
 
 
