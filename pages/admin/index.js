@@ -11,7 +11,7 @@ const Index = () => {
 
     return (
         <div className={styles.admin_dashboard}>
-            <h1 className={styles.dashboard_heading}>Welcome to the Admin Dashboard</h1>
+            <h1 className={styles.dashboard_heading}>Admin Dashboard</h1>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.HOME} />
 
             <div className={styles.admin_dashboard_content}>
