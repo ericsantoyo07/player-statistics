@@ -5,6 +5,7 @@ import { ADMIN_NAVIGATION_ITEMS, ADMIN_REQUEST_STATUS } from '@/utils/types'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import ProgressBar from "@ramonak/react-progress-bar";
+import { useRouter } from 'next/router'
 
 const Schedules = () => {
 
@@ -16,6 +17,8 @@ const Schedules = () => {
 
 
     const [progressPercentage, setProgressPercentage] = useState(0);
+
+    const router = useRouter();
 
     const handleStartingIndexChange = (e) => {
 
@@ -117,7 +120,6 @@ const Schedules = () => {
         if (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) {
             getSchedules();
         }
-
     }, [currentState]);
 
 
@@ -180,8 +182,7 @@ const Schedules = () => {
                                 }}>Start</button>
                                 :
                                 <button className={styles.admin_player_button} onClick={async () => {
-                                    setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
-                                    setCurrentIndex(startingIndex);
+                                  router.reload();
                                 }}>Cancel</button>
                         }
                     </div>

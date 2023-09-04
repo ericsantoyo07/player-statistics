@@ -5,6 +5,8 @@ import { ADMIN_NAVIGATION_ITEMS, ADMIN_REQUEST_STATUS } from '@/utils/types'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import ProgressBar from "@ramonak/react-progress-bar";
+import { useRouter } from 'next/router'
+
 
 const Players = () => {
 
@@ -16,6 +18,7 @@ const Players = () => {
 
 
     const [progressPercentage, setProgressPercentage] = useState(0);
+    const router = useRouter();
 
     const handleStartingIndexChange = (e) => {
 
@@ -72,18 +75,14 @@ const Players = () => {
         try {
             const response = await fetch(url, { method: 'GET' });
 
-            if (response.status === 404) {
+            if (response.status === 404 || !response.ok) {
                 return null;
-            }
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
             }
 
             const data = await response.json();
             return data;
         } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
+            // console.log('There was a problem with the fetch operation:', error);
             return null;
         }
     }
@@ -95,6 +94,9 @@ const Players = () => {
             if (data) {
                 console.log(data);
                 console.log("Player name: " + data.name);
+            }
+            else {
+                console.log("Player with id " + playerId + " not found");
             }
         }
         setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
@@ -133,7 +135,7 @@ const Players = () => {
 
     return (
         <div className={styles.admin_dashboard}>
-            <div> <h1 className={styles.dashboard_heading}>Update Players Data</h1> </div> 
+            <div> <h1 className={styles.dashboard_heading}>Update Players Data</h1> </div>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.PLAYERS} />
             <div className={styles.admin_dashboard_content}>
 
@@ -147,7 +149,7 @@ const Players = () => {
                             <input className={styles.admin_player_input} placeholder="ending index" value={endingIndex} onChange={handleEndingIndexChange} />
                         </div>
                     }
-                   
+
 
 
 
@@ -162,7 +164,7 @@ const Players = () => {
                             <ProgressBar
                                 completed={parseInt(progressPercentage)}
                                 customLabel={`${parseInt(progressPercentage)}` + "%"}
-                                    bgColor="#558680"
+                                bgColor="#558680"
                             />
                         </div>
                     }
@@ -175,8 +177,7 @@ const Players = () => {
                                 }}>Start</button>
                                 :
                                 <button className={styles.admin_player_button} onClick={async () => {
-                                    setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
-                                    setCurrentIndex(startingIndex);
+                                    router.reload();
                                 }}>Cancel</button>
                         }
                     </div>
