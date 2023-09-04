@@ -4,7 +4,13 @@ async function addPlayers(players) {
 
     const { error } = await supabase
         .from('players')
-        .insert([...players])
+        .upsert([...players])
 }
 
-export {addPlayers}
+async function addStats(stats) {
+    const { error } = await supabase
+        .from('stats')
+        .upsert([...stats])
+}
+
+export { addPlayers, addStats }
