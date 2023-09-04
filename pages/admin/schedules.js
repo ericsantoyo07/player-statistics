@@ -140,7 +140,7 @@ const Schedules = () => {
 
     return (
         <div className={styles.admin_dashboard}>
-            <div> <h1 className={styles.dashboard_heading}>Update Schedules Data</h1> </div> 
+            <div> <h1 className={styles.dashboard_heading}>Update Schedules</h1> </div> 
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.SCHEDULES} />
             <div className={styles.admin_dashboard_content}>
 

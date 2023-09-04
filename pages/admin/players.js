@@ -315,7 +315,7 @@ const Players = () => {
 
     return (
         <div className={styles.admin_dashboard}>
-            <div> <h1 className={styles.dashboard_heading}>Update Players Data</h1> </div>
+            <div> <h1 className={styles.dashboard_heading}>Update Players</h1> </div>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.PLAYERS} />
             <div className={styles.admin_dashboard_content}>
 

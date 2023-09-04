@@ -110,7 +110,7 @@ const Teams = () => {
 
     return (
         <div className={styles.admin_dashboard}>
-            <div> <h1 className={styles.dashboard_heading}>Update Teams Data</h1> </div>
+            <div> <h1 className={styles.dashboard_heading}>Update Teams</h1> </div>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.TEAMS} />
             <div className={styles.admin_dashboard_content}>
 
