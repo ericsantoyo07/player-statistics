@@ -11,59 +11,22 @@ const Teams = () => {
     const [currentState, setCurrentState] = useState(ADMIN_REQUEST_STATUS.IDLE);
 
 
-    const [progressPercentage, setProgressPercentage] = useState(10);
+    const [progressPercentage, setProgressPercentage] = useState(0);
 
-    const handleStartingIndexChange = (e) => {
 
-        if (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) {
-            return;
-        }
-        // Remove leading zeros and parse the input as an integer
-        const parsedValue = parseInt(e.target.value, 10);
 
-        // Check if the parsed value is a valid number
-        if (!isNaN(parsedValue)) {
-            // Ensure the value is within the allowed range (0 to 38)
-            const newValue = Math.min(38, Math.max(0, parsedValue));
-            setStartingIndex(newValue);
-            setCurrentIndex(newValue);
-        } else if (e.target.value === "") {
-            // If nothing is entered, set it to 0
-            setStartingIndex(0);
-            setCurrentIndex(0);
-        }
-    }
-
-    const handleEndingIndexChange = (e) => {
-
-        if (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) {
-            return;
-        }
-
-        // Remove leading zeros and parse the input as an integer
-        const parsedValue = parseInt(e.target.value, 10);
-
-        // Check if the parsed value is a valid number
-        if (!isNaN(parsedValue)) {
-            // Ensure the value is within the allowed range (0 to 38)
-            const newValue = Math.min(38, Math.max(0, parsedValue));
-            setEndingIndex(newValue);
-        } else if (e.target.value === "") {
-            // If nothing is entered, set it to 0
-            setEndingIndex(0);
-        }
+    async function wait(ms) {
+        return new Promise(resolve => {
+            setTimeout(resolve, ms);
+        });
     }
 
 
 
-    async function fetchData(weekID) {
-        const baseUrl = 'https://api-fantasy.llt-services.com/stats';
-        const endpoint = `/v1/stats/week/${weekID}?x-lang=en`;
-
-
+    async function fetchData() {
+        const baseUrl = ' https://api-fantasy.llt-services.com';
+        const endpoint = `/api/v3/teams-master?x-lang=en`;
         const url = `https://nextjs-cors-anywhere.vercel.app/api?endpoint=${baseUrl}${endpoint}`;
-
-
 
         try {
             const response = await fetch(url, { method: 'GET' });
@@ -77,6 +40,7 @@ const Teams = () => {
             }
 
             const data = await response.json();
+            console.log(data);
             return data;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
@@ -84,20 +48,19 @@ const Teams = () => {
         }
     }
 
-    async function getSchedules() {
-        
-        for (let weekID = currentIndex; weekID < endingIndex; weekID++) {
-            if(currentState === ADMIN_REQUEST_STATUS.IDLE){
-                break;
-            }
-            const data = await fetchData(weekID);
-            setCurrentIndex(weekID);
-            if (data) {
-                console.log('weekID: ', weekID);    
-                console.log(data);
-            }
-        }
-        setCurrentIndex(0);
+    async function getTeams() {
+
+
+        setProgressPercentage(25);
+        await wait(500);
+        await fetchData();
+        setProgressPercentage(50);
+        await wait(500);
+        setProgressPercentage(75);
+        await wait(500);
+        setProgressPercentage(98);
+        await wait(500);
+        setProgressPercentage(0);
         setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
     }
 
@@ -111,21 +74,11 @@ const Teams = () => {
     // Call getPlayers when the component mounts or when currentIndex, endingIndex, or currentState change
     useEffect(() => {
         if (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) {
-            getSchedules();
+            getTeams();
         }
 
     }, [currentState]);
 
-
-    useEffect(() => {
-        if (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) {
-            const percentage = Math.round(((currentIndex - startingIndex) / (endingIndex - startingIndex)) * 100);
-            setProgressPercentage(percentage);
-        }
-        else {
-            setProgressPercentage(0);
-        }
-    }, [currentIndex, currentState]);
 
 
 
@@ -134,36 +87,32 @@ const Teams = () => {
 
     return (
         <div className={styles.admin_dashboard}>
-            <div> <h1 className={styles.dashboard_heading}>Update Teams Data</h1> </div> 
+            <div> <h1 className={styles.dashboard_heading}>Update Teams Data</h1> </div>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.TEAMS} />
             <div className={styles.admin_dashboard_content}>
 
                 <div className={styles.admin_players_content}>
+
                     {
                         (currentState === ADMIN_REQUEST_STATUS.IDLE) &&
-                        <div className={styles.admin_player_input_container}>
-                            <p className={styles.admin_player_input_label}>Starting Index</p>
-                            <input className={styles.admin_player_input} placeholder="starting index" value={startingIndex} onChange={handleStartingIndexChange} />
-                            <p className={styles.admin_player_input_label}>Ending Index</p>
-                            <input className={styles.admin_player_input} placeholder="ending index" value={endingIndex} onChange={handleEndingIndexChange} />
+                        <div className={styles.admin_players_content_info}>
+                            <h3>
+                                {`Click on the Start button to get Teams Data from API`}
+                            </h3>
                         </div>
                     }
-                   
-
-
-
 
                     {
                         (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) &&
                         <div className={styles.progress}>
 
                             <h3>
-                                {`Completed ${currentIndex - startingIndex} of ${endingIndex - startingIndex} requests`}
+                                {`Getting Teams Data from API`}
                             </h3>
                             <ProgressBar
                                 completed={parseInt(progressPercentage)}
                                 customLabel={`${parseInt(progressPercentage)}` + "%"}
-                                    bgColor="#558680"
+                                bgColor="#558680"
                             />
                         </div>
                     }
@@ -171,13 +120,12 @@ const Teams = () => {
                         {
                             (currentState === ADMIN_REQUEST_STATUS.IDLE) ?
                                 <button className={styles.admin_player_button} onClick={() => {
-                                    setCurrentIndex(startingIndex);
+
                                     setCurrentState(ADMIN_REQUEST_STATUS.IN_PROGRESS);
                                 }}>Start</button>
                                 :
                                 <button className={styles.admin_player_button} onClick={async () => {
                                     setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
-                                    setCurrentIndex(startingIndex);
                                 }}>Cancel</button>
                         }
                     </div>

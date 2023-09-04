@@ -81,6 +81,11 @@
     border-radius: 5px;
 }
 
+.admin_players_content_info {
+    max-width: 60vw;
+    text-align: center;
+}
+
 .admin_player_input_label {
     font-size: larger;
     padding: 10px;
