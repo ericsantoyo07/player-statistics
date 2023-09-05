@@ -11,7 +11,7 @@ import { addMatches } from '@/database/functions'
 const Schedules = () => {
 
     const [startingIndex, setStartingIndex] = useState(0);
-    const [endingIndex, setEndingIndex] = useState(38);
+    const [endingIndex, setEndingIndex] = useState(40);
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentState, setCurrentState] = useState(ADMIN_REQUEST_STATUS.IDLE);
@@ -31,8 +31,8 @@ const Schedules = () => {
 
         // Check if the parsed value is a valid number
         if (!isNaN(parsedValue)) {
-            // Ensure the value is within the allowed range (0 to 38)
-            const newValue = Math.min(38, Math.max(0, parsedValue));
+            // Ensure the value is within the allowed range (0 to 40)
+            const newValue = Math.min(40, Math.max(0, parsedValue));
             setStartingIndex(newValue);
             setCurrentIndex(newValue);
         } else if (e.target.value === "") {
@@ -53,8 +53,8 @@ const Schedules = () => {
 
         // Check if the parsed value is a valid number
         if (!isNaN(parsedValue)) {
-            // Ensure the value is within the allowed range (0 to 38)
-            const newValue = Math.min(38, Math.max(0, parsedValue));
+            // Ensure the value is within the allowed range (0 to 40)
+            const newValue = Math.min(40, Math.max(0, parsedValue));
             setEndingIndex(newValue);
         } else if (e.target.value === "") {
             // If nothing is entered, set it to 0
