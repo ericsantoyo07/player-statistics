@@ -19,4 +19,10 @@ async function addTeams(teams) {
         .upsert([...teams])
 }
 
-export { addPlayers, addStats , addTeams }
+async function addMatches(matches) {
+    const { error } = await supabase
+        .from('matches')
+        .upsert([...matches])
+}
+
+export { addPlayers, addStats , addTeams , addMatches };

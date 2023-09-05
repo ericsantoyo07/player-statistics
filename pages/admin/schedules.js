@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useRouter } from 'next/router'
+import { addMatches } from '@/database/functions'
 
 const Schedules = () => {
 
@@ -62,6 +63,27 @@ const Schedules = () => {
     }
 
 
+    function formatMatches(matches, week) {
+        const formattedMatches = [];
+
+        matches.forEach((match) => {
+            formattedMatches.push({
+                matchID: match.id,
+                matchDate: match.matchDate,
+                matchState: match.matchState,
+                localScore: match.localScore,
+                visitorScore: match.visitorScore,
+                localTeamID: match.local.id,
+                visitorTeamID: match.visitor.id,
+                week: week,
+            });
+        });
+
+        return formattedMatches;
+    }
+
+
+
 
     async function fetchData(weekID) {
         const baseUrl = 'https://api-fantasy.llt-services.com/stats';
@@ -92,18 +114,26 @@ const Schedules = () => {
     }
 
     async function getSchedules() {
-        
+
+        const matches = [];
         for (let weekID = currentIndex; weekID < endingIndex; weekID++) {
-            if(currentState === ADMIN_REQUEST_STATUS.IDLE){
+            if (currentState === ADMIN_REQUEST_STATUS.IDLE) {
                 break;
             }
             const data = await fetchData(weekID);
+            if (data) {
+                const formattedMatches = formatMatches(data, weekID);
+                matches.push(...formattedMatches);
+            }
             setCurrentIndex(weekID);
             if (data) {
-                console.log('weekID: ', weekID);    
+                console.log('weekID: ', weekID);
                 console.log(data);
             }
         }
+        console.log('matches: ', matches);
+        // add matches to database
+        await addMatches(matches);
         setCurrentIndex(0);
         setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
     }
@@ -140,7 +170,7 @@ const Schedules = () => {
 
     return (
         <div className={styles.admin_dashboard}>
-            <div> <h1 className={styles.dashboard_heading}>Update Schedules</h1> </div> 
+            <div> <h1 className={styles.dashboard_heading}>Update Schedules</h1> </div>
             <AdminNavigationBar active={ADMIN_NAVIGATION_ITEMS.SCHEDULES} />
             <div className={styles.admin_dashboard_content}>
 
@@ -154,7 +184,7 @@ const Schedules = () => {
                             <input className={styles.admin_player_input} placeholder="ending index" value={endingIndex} onChange={handleEndingIndexChange} />
                         </div>
                     }
-                   
+
 
 
 
@@ -169,7 +199,7 @@ const Schedules = () => {
                             <ProgressBar
                                 completed={parseInt(progressPercentage)}
                                 customLabel={`${parseInt(progressPercentage)}` + "%"}
-                                    bgColor="#558680"
+                                bgColor="#558680"
                             />
                         </div>
                     }
@@ -177,7 +207,7 @@ const Schedules = () => {
                         {
                             (currentState === ADMIN_REQUEST_STATUS.IDLE) ?
                                 <button className={styles.admin_player_button} onClick={() => {
-                                    if(parseInt(startingIndex) >= parseInt(endingIndex)){
+                                    if (parseInt(startingIndex) >= parseInt(endingIndex)) {
                                         return;
                                     }
                                     setCurrentIndex(startingIndex);
@@ -185,7 +215,7 @@ const Schedules = () => {
                                 }}>Start</button>
                                 :
                                 <button className={styles.admin_player_button} onClick={async () => {
-                                  router.reload();
+                                    router.reload();
                                 }}>Cancel</button>
                         }
                     </div>
