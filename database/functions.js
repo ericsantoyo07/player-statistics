@@ -25,4 +25,63 @@ async function addMatches(matches) {
         .upsert([...matches])
 }
 
-export { addPlayers, addStats , addTeams , addMatches };
+async function getPlayersCount() {
+    const { count } = await supabase
+        .from('players')
+        .select('*', { count: 'exact' })
+    return count;
+}
+
+async function getTeamsCount() {
+    const { count } = await supabase
+        .from('teams')
+        .select('*', { count: 'exact' })
+    return count;
+}
+
+async function getMatchesCount() {
+    const { count } = await supabase
+        .from('matches')
+        .select('*', { count: 'exact' })
+    return count;
+}
+
+
+async function deleteAllPlayers() {
+    const { data, error } = await supabase
+        .from('players')
+        .delete()
+        .not('playerID', 'is', null)
+    return data;
+}
+
+async function deleteAllTeams() {
+    const { data, error } = await supabase
+        .from('teams')
+        .delete()
+        .not('teamID', 'is', null)
+    return data;
+}
+
+async function deleteAllMatches() {
+    const { data, error } = await supabase
+        .from('matches')
+        .delete()
+        .not('matchID', 'is', null)
+    return data;
+}
+
+
+
+export {
+    addPlayers,
+    addStats,
+    addTeams,
+    addMatches,
+    getPlayersCount,
+    getTeamsCount,
+    getMatchesCount,
+    deleteAllPlayers,
+    deleteAllTeams,
+    deleteAllMatches
+};
