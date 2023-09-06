@@ -1,0 +1,53 @@
+.Home{
+    background-color: rebeccapurple;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.background{
+    background-color: aqua;
+    height: 30vh;
+}
+
+.control_bar{
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.grid{
+    background-color: brown;
+    flex: 1;
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.overlay_bar{
+    background-color: black;
+    display: flex;
+    justify-content: flex-end;
+    padding: 30px;
+}
+
+.card{
+    width: 100%;
+    background-color: chartreuse;
+    word-break: break-all;
+}
+
+.player_image{
+    height: 50px;
+    width: 50px;
+}
+
+.top_row{
+    display: flex;
+    gap: 20px;
+}
+
