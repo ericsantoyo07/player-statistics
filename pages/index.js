@@ -239,24 +239,47 @@ export default function Home() {
 
       {
         isFiltering &&
-        <div className={styles.filter_overlay}>
-          <div className={styles.filter_overlay_top}>
-            <button onClick={() => { setIsFiltering(false) }}>X</button>
+        <div className={styles.filter_overlay_main}>
+          <button onClick={() => { setIsFiltering(false) }}>X</button>
+          <p className={styles.filter_title}> Position</p>
+          <div className={styles.position_filter}>
+            {
+              Object.keys(POSITION_FILTER).map((key) => {
+                return (
+                  <div
+                    className={` ${positionFilter === POSITION_FILTER[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
+                    key={key} onClick={() => { setPositionFilter(POSITION_FILTER[key]); }}>{getPositionFilterNames(POSITION_FILTER[key])}</div>
+                )
+              })
+            }
           </div>
-          <div className={styles.filter_overlay_main}>
-            <p className={styles.filter_title}> Position</p>
-            <div className={styles.position_filter}>
-              {
-                Object.keys(POSITION_FILTER).map((key) => {
-                  return (
-                    <div
-                      className={` ${positionFilter === POSITION_FILTER[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
-                      key={key} onClick={() => { setPositionFilter(POSITION_FILTER[key]); }}>{getPositionFilterNames(POSITION_FILTER[key])}</div>
-                  )
-                })
-              }
-            </div>
+
+          <p className={styles.filter_title}> Position</p>
+          <div className={styles.position_filter}>
+            {
+              Object.keys(POSITION_FILTER).map((key) => {
+                return (
+                  <div
+                    className={` ${positionFilter === POSITION_FILTER[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
+                    key={key} onClick={() => { setPositionFilter(POSITION_FILTER[key]); }}>{getPositionFilterNames(POSITION_FILTER[key])}</div>
+                )
+              })
+            }
           </div>
+
+          <p className={styles.filter_title}> Injured</p>
+          <div className={styles.position_filter}>
+            {
+              Object.keys(POSITION_FILTER).map((key) => {
+                return (
+                  <div
+                    className={` ${positionFilter === POSITION_FILTER[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
+                    key={key} onClick={() => { setPositionFilter(POSITION_FILTER[key]); }}>{getPositionFilterNames(POSITION_FILTER[key])}</div>
+                )
+              })
+            }
+          </div>
+
         </div>
       }
 
