@@ -13,6 +13,14 @@ const SORT_BY = {
   AVERAGE_POINTS: "averagePoints",
 };
 
+const POSITION_FILTER = {
+  DEFAULT: "default", // Optional, if you want to include a "default" option
+  GK: "Portero",
+  DEF: "Defensa",
+  MID: "Centrocampista",
+  STR: "Delantero",
+};
+
 export default function Home() {
 
   const [players, setPlayers] = useState([]);
@@ -26,6 +34,7 @@ export default function Home() {
   const [isSorting, setIsSorting] = useState(false);
 
   const [sortBy, setSortBy] = useState(SORT_BY.DEFAULT);
+  const [positionFilter, setPositionFilter] = useState(POSITION_FILTER.DEFAULT);
 
   function formatPlayersWithStats(players, stats) {
     const formattedPlayers = [];
@@ -85,6 +94,23 @@ export default function Home() {
     }
   }
 
+  function getPositionFilterNames(position) {
+    switch (position) {
+      case 'Portero':
+        return 'G';
+      case 'Defensa':
+        return 'D';
+      case 'Centrocampista':
+        return 'M';
+      case 'Delantero':
+        return 'S';
+      case "default":
+        return 'All';
+      default:
+        return position;
+    }
+  }
+
   function getProperStatus(status) {
     switch (status) {
       case 'injure':
@@ -114,6 +140,8 @@ export default function Home() {
         return 'Team';
       case 'averagePoints':
         return 'Average Points';
+      case 'default':
+        return 'Default';
       default:
         return sortBy;
     }
@@ -148,12 +176,12 @@ export default function Home() {
         return 0; // No sorting needed for "default"
       } else if (propertyName === "name") {
         return a.playerData.name.localeCompare(b.playerData.name);
-      } 
+      }
       if (propertyName === "position") {
         return a.playerData.position.localeCompare(b.playerData.position);
       }
       else {
-        return valueB- valueA;
+        return valueB - valueA;
       }
     });
   }
@@ -169,6 +197,11 @@ export default function Home() {
     }
     if (playerName && playerName !== '') {
       filtered = filtered.filter((player) => player.playerData.name.toLowerCase().includes(playerName.toLowerCase()));
+    }
+
+    if (positionFilter !== POSITION_FILTER.DEFAULT) {
+      console.log('position Filter', positionFilter);
+      filtered = filtered.filter((player) => player.playerData.position === positionFilter);
     }
 
 
@@ -211,6 +244,18 @@ export default function Home() {
             <button onClick={() => { setIsFiltering(false) }}>X</button>
           </div>
           <div className={styles.filter_overlay_main}>
+            <p className={styles.filter_title}> Position</p>
+            <div className={styles.position_filter}>
+              {
+                Object.keys(POSITION_FILTER).map((key) => {
+                  return (
+                    <div
+                      className={` ${positionFilter === POSITION_FILTER[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
+                      key={key} onClick={() => { setPositionFilter(POSITION_FILTER[key]); }}>{getPositionFilterNames(POSITION_FILTER[key])}</div>
+                  )
+                })
+              }
+            </div>
           </div>
         </div>
       }
