@@ -21,6 +21,21 @@ const POSITION_FILTER = {
   STR: "Delantero",
 };
 
+
+// 0m - 1m
+// 1m - 5m
+// 5m - 10m
+// 10+
+
+const PRICE_FILTERS = {
+  DEFAULT: "All", // Optional, if you want to include a "default" option
+  ONE_MILLION: "0M - 1M",
+  FIVE_MILLION: "1M - 5M",
+  TEN_MILLION: "5M - 10M",
+  TEN_PLUS_MILLION: "10M+",
+};
+
+
 export default function Home() {
 
   const [players, setPlayers] = useState([]);
@@ -35,6 +50,7 @@ export default function Home() {
 
   const [sortBy, setSortBy] = useState(SORT_BY.DEFAULT);
   const [positionFilter, setPositionFilter] = useState(POSITION_FILTER.DEFAULT);
+  const [priceFilter, setPriceFilter] = useState(PRICE_FILTERS.DEFAULT);
 
   function formatPlayersWithStats(players, stats) {
     const formattedPlayers = [];
@@ -187,6 +203,22 @@ export default function Home() {
   }
 
 
+
+  function isValueinPriceFiltersRange(value, priceFilter) {
+    switch (priceFilter) {
+      case PRICE_FILTERS.ONE_MILLION:
+        return value <= 1000000;
+      case PRICE_FILTERS.FIVE_MILLION:
+        return value > 1000000 && value <= 5000000;
+      case PRICE_FILTERS.TEN_MILLION:
+        return value > 5000000 && value <= 10000000;
+      case PRICE_FILTERS.TEN_PLUS_MILLION:
+        return value > 10000000;
+      default:
+        return true;
+    }
+  }
+
   function getFilteredPlayers() {
     let filtered = [...players];
     console.log('selectedTeam', selectedTeam);
@@ -202,6 +234,11 @@ export default function Home() {
     if (positionFilter !== POSITION_FILTER.DEFAULT) {
       console.log('position Filter', positionFilter);
       filtered = filtered.filter((player) => player.playerData.position === positionFilter);
+    }
+
+    if (priceFilter !== PRICE_FILTERS.DEFAULT) {
+      console.log('price Filter', priceFilter);
+      filtered = filtered.filter((player) => isValueinPriceFiltersRange(player.playerData.marketValue, priceFilter));
     }
 
 
@@ -254,14 +291,14 @@ export default function Home() {
             }
           </div>
 
-          <p className={styles.filter_title}> Position</p>
+          <p className={styles.filter_title}> Price </p>
           <div className={styles.position_filter}>
             {
-              Object.keys(POSITION_FILTER).map((key) => {
+              Object.keys(PRICE_FILTERS).map((key) => {
                 return (
                   <div
-                    className={` ${positionFilter === POSITION_FILTER[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
-                    key={key} onClick={() => { setPositionFilter(POSITION_FILTER[key]); }}>{getPositionFilterNames(POSITION_FILTER[key])}</div>
+                    className={` ${priceFilter === PRICE_FILTERS[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
+                    key={key} onClick={() => { setPriceFilter(PRICE_FILTERS[key]); }}>{PRICE_FILTERS[key]}</div>
                 )
               })
             }
@@ -375,8 +412,11 @@ export default function Home() {
         <div className={styles.overlay_bar}>
           <button onClick={() => { setIsFiltering(true) }}>Filter</button>
           {
-            positionFilter !== POSITION_FILTER.DEFAULT &&
-            <button onClick={() => { setPositionFilter(POSITION_FILTER.DEFAULT) }}>Clear Filters</button>
+            (positionFilter !== POSITION_FILTER.DEFAULT || priceFilter !== PRICE_FILTERS.DEFAULT) &&
+            <button onClick={() => {
+              setPositionFilter(POSITION_FILTER.DEFAULT)
+              setPriceFilter(PRICE_FILTERS.DEFAULT)
+            }}>Clear Filters</button>
           }
           <button onClick={() => { setIsSorting(true) }}>Sort</button>
           {
