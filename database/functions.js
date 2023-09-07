@@ -48,11 +48,17 @@ async function getMatchesCount() {
 
 
 async function deleteAllPlayers() {
-    const { data, error } = await supabase
+    const { data: playersDeleted } = await supabase
         .from('players')
         .delete()
         .not('playerID', 'is', null)
-    return data;
+
+    const { data: statsDeleted } = await supabase
+        .from('stats')
+        .delete()
+        .not('playerID', 'is', null)
+
+    return {data: playersDeleted, stats: statsDeleted};
 }
 
 async function deleteAllTeams() {

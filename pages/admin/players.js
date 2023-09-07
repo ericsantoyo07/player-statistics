@@ -93,28 +93,29 @@ const Players = () => {
 
 
     function filterDuplicateWeekStats(stats) {
-        // Create an object to store the last occurrence of each player ID and week combination
-        const lastStats = {};
+        // Create an object to store the first occurrence of each player ID and week combination
+        const firstStats = {};
 
-        // Iterate through the stats array in reverse order (to keep the last occurrence)
-        for (let i = stats.length - 1; i >= 0; i--) {
+        // Iterate through the stats array
+        for (let i = 0; i < stats.length; i++) {
             const stat = stats[i];
             const playerID = stat.playerID;
             const week = stat.week;
             const key = playerID + '-' + week;
 
             // Check if this combination of player ID and week has already been encountered
-            if (!lastStats[key]) {
-                // If not encountered, store it as the last occurrence
-                lastStats[key] = stat;
+            if (!firstStats[key]) {
+                // If not encountered, store it as the first occurrence
+                firstStats[key] = stat;
             }
         }
 
-        // Convert the values of the lastStats object back into an array
-        const filteredStats = Object.values(lastStats);
+        // Convert the values of the firstStats object back into an array
+        const filteredStats = Object.values(firstStats);
 
         return filteredStats;
     }
+
 
 
     function formatPlayerStats(statData, playerId) {
@@ -181,7 +182,7 @@ const Players = () => {
 
         }
 
-        
+
         return filterDuplicateWeekStats(stats);
 
     }
@@ -205,7 +206,7 @@ const Players = () => {
     }
 
 
-   
+
 
 
     function splitPlayersData(data) {
@@ -225,6 +226,7 @@ const Players = () => {
             let status = data[i].playerStatus;
             let teamID = data[i].team?.id ? parseInt(data[i].team.id) : null;
             let image = findImage(data[i].images);
+            let points = data[i].points;
 
 
             const player = {
@@ -236,6 +238,7 @@ const Players = () => {
                 positionID: positionID,
                 marketValue: marketValue,
                 averagePoints: averagePoints,
+                points: points,
                 teamID: teamID,
                 image: image
             }
@@ -352,7 +355,7 @@ const Players = () => {
                         {
                             (currentState === ADMIN_REQUEST_STATUS.IDLE) ?
                                 <button className={styles.admin_player_button} onClick={() => {
-                                    if(parseInt(endingIndex) <= parseInt(startingIndex)){
+                                    if (parseInt(endingIndex) <= parseInt(startingIndex)) {
                                         return;
                                     }
                                     setCurrentIndex(startingIndex);

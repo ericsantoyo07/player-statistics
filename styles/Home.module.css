@@ -1,17 +1,18 @@
-.Home{
-    background-color: rebeccapurple;
+.Home {
     height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #2b2b2b;
 }
 
-.background{
-    background-color: aqua;
+.background {
     height: 30vh;
+    background-image: url(/bg.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
-.control_bar{
-    background-color: blue;
+.control_bar {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,35 +20,109 @@
     padding: 20px;
 }
 
-.grid{
-    background-color: brown;
+.control_bar>input {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    text-align: center;
+    outline: none;
+    border: 1px solid #18dbc8;
+    background-color: transparent;
+    color: white;
+}
+
+
+.control_bar > select {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    text-align: center;
+    outline: none;
+    border: 1px solid #18dbc8;
+    background-color: transparent;
+    color: white;
+
+    scrollbar-width: none; /*For Firefox*/;
+    -ms-overflow-style: none;  /*For Internet Explorer 10+*/;
+   
+}
+
+/* REMOVE SCROLLBAR FROM SELECT */
+.control_bar > select::-webkit-scrollbar {
+    display: none;
+}
+
+.control_bar > select > option {
+    background-color: #2b2b2b;
+    color: white;
+}   
+
+.grid {
     flex: 1;
     overflow-y: scroll;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 20px;
+    padding: 20px;
+
+    /* remove scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
 }
 
-.overlay_bar{
-    background-color: black;
+/* REMOVE SCROLLBAR FROM GRID */
+.grid::-webkit-scrollbar {
+    display: none;
+}
+
+.overlay_bar {
     display: flex;
     justify-content: flex-end;
-    padding: 30px;
+    padding: 20px;
+    gap: 20px;
 }
 
-.card{
+.overlay_bar>button {
+    background-color: #00bfa6;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.card {
     width: 100%;
-    background-color: chartreuse;
-    word-break: break-all;
+    background-color: #111111;
+    color: white;
+    height: max-content;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #00bfa6;  
+    box-shadow: rgba(2, 2, 2, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
-.player_image{
+.player_image {
     height: 50px;
     width: 50px;
+    border-radius: 50%;
+    border: 1px solid white;
 }
 
-.top_row{
+.top_row {
     display: flex;
     gap: 20px;
 }
 
+/* mobile screen */
+@media only screen and (max-width: 768px) { 
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

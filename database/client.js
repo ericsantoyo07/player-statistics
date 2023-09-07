@@ -4,7 +4,7 @@ async function getAllPlayers() {
     const { data, error } = await supabase
         .from('players')
         .select('*')
-    return {data, error};
+    return { data, error };
 }
 
 async function getAllStats() {
@@ -14,4 +14,11 @@ async function getAllStats() {
     return { data, error };
 }
 
-export { getAllPlayers, getAllStats };
+async function getAllTeams() {
+    const { data, error } = await supabase
+        .from('teams')
+        .select('*')
+    return { data, error };
+}
+
+export { getAllPlayers, getAllStats, getAllTeams };
