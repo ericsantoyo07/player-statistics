@@ -5,6 +5,7 @@
     background-color: #2b2b2b;
     position: relative;
 }
+
 .filter_overlay {
     position: absolute;
     background-color: #00000050;
@@ -16,6 +17,7 @@
     display: flex;
     flex-direction: column;
 }
+
 .sort_overlay {
     position: absolute;
     background-color: #00000050;
@@ -42,7 +44,7 @@
     align-items: center;
 }
 
-.loading_overlay > img {
+.loading_overlay>img {
     height: 50px;
     width: 50px;
 }
@@ -54,6 +56,7 @@
     justify-content: flex-end;
     background-color: #00000050;
 }
+
 .sort_overlay_top {
     padding: 20px;
     height: 30vh;
@@ -62,7 +65,7 @@
     background-color: #00000050;
 }
 
-.filter_overlay_top > button {
+.filter_overlay_top>button {
     background-color: #111111;
     border: 5px solid #00bfa6;
     color: #00bfa6;
@@ -78,7 +81,7 @@
     align-items: center;
 }
 
-.sort_overlay_top > button {
+.sort_overlay_top>button {
     background-color: #111111;
     border: 5px solid #00bfa6;
     color: #00bfa6;
@@ -92,8 +95,31 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+
 }
 
+
+.sort_option {
+    background-color: #111111;
+    color: white;
+    border: 1px solid #00bfa6;
+    padding: 10px;
+    border-radius: 5px;
+    width: 60%;
+    text-align: center;
+}
+
+.selected_sort_option {
+
+    background-color: #00bfa6;
+    color: white;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    width: 60%;
+    text-align: center;
+}
 
 .filter_overlay_main {
     margin: auto;
@@ -105,6 +131,8 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+
+
 }
 
 .sort_overlay_main {
@@ -117,6 +145,16 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    overflow-y: scroll;
+
+    /* remove scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* REMOVE SCROLLBAR FROM SORT OVERLAY */
+.sort_overlay_main::-webkit-scrollbar {
+    display: none;
 }
 
 .background {
@@ -148,7 +186,7 @@
 }
 
 
-.control_bar > select {
+.control_bar>select {
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 5px;
@@ -160,20 +198,24 @@
     background-color: transparent;
     color: white;
 
-    scrollbar-width: none; /*For Firefox*/;
-    -ms-overflow-style: none;  /*For Internet Explorer 10+*/;
-   
+    scrollbar-width: none;
+    /*For Firefox*/
+    ;
+    -ms-overflow-style: none;
+    /*For Internet Explorer 10+*/
+    ;
+
 }
 
 /* REMOVE SCROLLBAR FROM SELECT */
-.control_bar > select::-webkit-scrollbar {
+.control_bar>select::-webkit-scrollbar {
     display: none;
 }
 
-.control_bar > select > option {
+.control_bar>select>option {
     background-color: #2b2b2b;
     color: white;
-}   
+}
 
 .grid {
     flex: 1;
@@ -219,7 +261,7 @@
     height: 100%;
     padding: 20px;
     border-radius: 10px;
-    border: 1px solid #00bfa6;  
+    border: 1px solid #00bfa6;
     box-shadow: rgba(2, 2, 2, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
@@ -252,6 +294,7 @@
     justify-content: center;
     margin-bottom: 10px;
 }
+
 .market_value {
     color: #00bfa6;
     font-weight: bolder;
@@ -266,6 +309,7 @@
     border-bottom: 1px solid #00bfa630;
     align-items: center;
 }
+
 .name {
     max-width: max-content;
     font-weight: bolder;
@@ -301,8 +345,14 @@
 }
 
 /* mobile screen */
-@media only screen and (max-width: 768px) { 
+@media only screen and (max-width: 768px) {
     .grid {
         grid-template-columns: 1fr;
+    }
+    .sort_option {
+        width: 80%;
+    }
+    .selected_sort_option {
+        width: 80%;
     }
 }

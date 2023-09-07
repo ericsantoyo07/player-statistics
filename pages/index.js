@@ -3,6 +3,16 @@ import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from 'react'
 
 
+const SORT_BY = {
+  DEFAULT: "default", // Optional, if you want to include a "default" option
+  POINTS: "points",
+  MARKET_VALUE: "marketValue",
+  NAME: "name",
+  POSITION: "position",
+  TEAM_ID: "teamID",
+  AVERAGE_POINTS: "averagePoints",
+};
+
 export default function Home() {
 
   const [players, setPlayers] = useState([]);
@@ -14,6 +24,8 @@ export default function Home() {
 
   const [isFiltering, setIsFiltering] = useState(false);
   const [isSorting, setIsSorting] = useState(false);
+
+  const [sortBy, setSortBy] = useState(SORT_BY.DEFAULT);
 
   function formatPlayersWithStats(players, stats) {
     const formattedPlayers = [];
@@ -88,6 +100,65 @@ export default function Home() {
     }
   }
 
+  function getProperSortBy(sortBy) {
+    switch (sortBy) {
+      case 'marketValue':
+        return 'Market Value';
+      case 'points':
+        return 'Points';
+      case 'name':
+        return 'Name';
+      case 'position':
+        return 'Position';
+      case 'teamID':
+        return 'Team';
+      case 'averagePoints':
+        return 'Average Points';
+      default:
+        return sortBy;
+    }
+  }
+
+
+  function sortPlayers(players, propertyName) {
+    const validProperties = [
+      "default",
+      "marketValue",
+      "points",
+      "name",
+      "position",
+      "teamID",
+      "averagePoints"
+    ];
+
+    if (!validProperties.includes(propertyName)) {
+      console.error("Invalid property name.");
+      return players;
+    }
+
+    return players.sort((a, b) => {
+      const valueA = a.playerData[propertyName];
+      const valueB = b.playerData[propertyName];
+
+      // Handle cases where values are null or undefined
+      if (valueA === null || valueA === undefined) return 1;
+      if (valueB === null || valueB === undefined) return -1;
+
+      if (propertyName === "default") {
+        return 0; // No sorting needed for "default"
+      } else if (propertyName === "name") {
+        return a.playerData.name.localeCompare(b.playerData.name);
+      } 
+      if (propertyName === "position") {
+        return a.playerData.position.localeCompare(b.playerData.position);
+      }
+      else {
+        return valueB- valueA;
+      }
+    });
+  }
+
+
   function getFilteredPlayers() {
     let filtered = [...players];
     console.log('selectedTeam', selectedTeam);
@@ -101,6 +172,8 @@ export default function Home() {
     }
 
 
+    console.log('sorted by', sortBy);
+    filtered = sortPlayers(filtered, sortBy);
     return filtered;
   }
 
@@ -149,6 +222,15 @@ export default function Home() {
             <button onClick={() => { setIsSorting(false) }}>X</button>
           </div>
           <div className={styles.sort_overlay_main}>
+            {
+              Object.keys(SORT_BY).map((key) => {
+                return (
+                  <div
+                    className={` ${sortBy === SORT_BY[key] ? styles.selected_sort_option : styles.sort_option} `}
+                    key={key} onClick={() => { setSortBy(SORT_BY[key]); setIsSorting(false) }}>{getProperSortBy(SORT_BY[key])}</div>
+                )
+              })
+            }
           </div>
         </div>
       }
