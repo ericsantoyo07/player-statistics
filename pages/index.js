@@ -351,7 +351,16 @@ export default function Home() {
         !isLoading &&
         <div className={styles.overlay_bar}>
           <button onClick={() => { setIsFiltering(true) }}>Filter</button>
+          {
+            positionFilter !== POSITION_FILTER.DEFAULT &&
+            <button onClick={() => { setPositionFilter(POSITION_FILTER.DEFAULT) }}>Clear Filters</button>
+          }
           <button onClick={() => { setIsSorting(true) }}>Sort</button>
+          {
+            sortBy !== SORT_BY.DEFAULT &&
+            <button onClick={() => { setSortBy(SORT_BY.DEFAULT) }}>Clear Sort</button>
+          }
+
         </div>
       }
     </div>
