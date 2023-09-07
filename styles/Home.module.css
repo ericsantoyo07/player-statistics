@@ -66,6 +66,7 @@
     overflow-y: scroll;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
     gap: 20px;
     padding: 20px;
 
@@ -101,7 +102,7 @@
     width: 100%;
     background-color: #111111;
     color: white;
-    height: max-content;
+    height: 100%;
     padding: 20px;
     border-radius: 10px;
     border: 1px solid #00bfa6;  
@@ -112,12 +113,70 @@
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    border: 1px solid white;
+    border: 1px solid #00bfa6;
+}
+
+.player_team_image {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    border: 1px solid #00bfa6;
+    padding: 5px;
+}
+
+.player_status_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.market_value_row {
+    text-align: center;
+    padding: 10px;
+    color: #00bfa6;
+    font-weight: bolder;
+    font-size: larger;
 }
 
 .top_row {
     display: flex;
     gap: 20px;
+    cursor: pointer;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00bfa630;
+}
+
+/* position */
+
+.position {
+    color: white;
+    height: max-content;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: larger;
+    border: 1px solid #00bfa6;
+    margin-left: auto;
+}
+
+.points {
+    color: white;
+    height: max-content;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: larger;
+    border: 1px solid #00bfa6;
+}
+
+.status {
+    color: white;
+    height: max-content;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bolder;
+    border: 1px solid #00bfa6;
 }
 
 /* mobile screen */

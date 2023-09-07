@@ -29,6 +29,13 @@ export default function Home() {
     return 'https://assets-fantasy.llt-services.com/players/no-player.png';
   }
 
+  function getTeamImageSource(src) {
+    if (src && src !== '') {
+      return src;
+    }
+    return 'https://assets-fantasy.llt-services.com/teams/no-team.png';
+  }
+
   function getTeamsOptions(teams) {
     // add a default option of 'All Teams'
     const options = [{ teamID: -1, name: 'All Teams' }];
@@ -37,6 +44,48 @@ export default function Home() {
     }
     return options;
   }
+
+
+  function getTeamByID(teamID) {
+    if (!teams || teams.length === 0) {
+      return null;
+    }
+
+    return teams.find(team => team.teamID === teamID);
+  }
+
+  function getTranslatedPosition(position) {
+    switch (position) {
+      case 'Portero':
+        return 'GK';
+      case 'Defensa':
+        return 'Def';
+      case 'Centrocampista':
+        return 'Mid';
+      case 'Delantero':
+        return 'Str';
+      default:
+        return position;
+    }
+  }
+
+  function getProperStatus(status) {
+    switch (status) {
+      case 'injure':
+        return 'Injured';
+      case 'out_of_league':
+        return 'Out of League';
+      case 'doubt':
+        return 'Doubt';
+      case 'ok':
+        return 'Available';
+      default:
+        return status;
+    }
+  }
+
+
+
 
 
   useEffect(() => {
@@ -48,9 +97,9 @@ export default function Home() {
       if (fetchedPlayers && fetchedStats) {
         const formatted = formatPlayersWithStats(fetchedPlayers, fetchedStats);
         setPlayers(formatted);
-        console.log(formatted[128]);
       }
       if (fetchedTeams) {
+        console.log(fetchedTeams);
         setTeams(fetchedTeams);
       }
 
@@ -82,20 +131,35 @@ export default function Home() {
       </div>
       <div className={styles.grid}>
         {
-          players.map((player, index) => {
+          players.map((player) => {
             return (
               <div className={styles.card} key={player.playerData.playerID}>
                 <div className={styles.top_row}>
                   <img className={styles.player_image} src={getImageSource(player.playerData.image)} />
                   <p>{player.playerData.name} </p>
-                  <p>{player.playerData.position}</p>
-                  <p>{player.playerData.points}</p>
+                  <p className={styles.position}>{getTranslatedPosition(player.playerData.position)}</p>
+                  <p className={styles.points}>{player.playerData.points}</p>
                 </div>
 
+
                 <div className={styles.market_value_row}>
-                  <p>{player.playerData.marketValue}</p>
+                  <p>€{player.playerData.marketValue}</p>
                 </div>
+
+
+                <div className={styles.player_status_row}>
+                  {
+                    getTeamByID(player.playerData.teamID) ?
+                      <img className={styles.player_team_image} src={getTeamImageSource(getTeamByID(player.playerData.teamID)?.image)} />
+                      :
+                      <div></div>
+                  }
+                  <p className={styles.status}> {getProperStatus(player.playerData.status)}</p>
+
+                </div>
+
               </div>
+
             )
           })
         }
