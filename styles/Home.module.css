@@ -132,8 +132,13 @@
 }
 
 .market_value_row {
-    text-align: center;
     padding: 10px;
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.market_value {
     color: #00bfa6;
     font-weight: bolder;
     font-size: larger;
@@ -145,19 +150,21 @@
     cursor: pointer;
     padding-bottom: 10px;
     border-bottom: 1px solid #00bfa630;
+    align-items: center;
 }
-
-/* position */
+.name {
+    max-width: max-content;
+    font-weight: bolder;
+    font-size: larger;
+}
 
 .position {
     color: white;
     height: max-content;
     padding: 5px;
     border-radius: 5px;
-    font-weight: bolder;
-    font-size: larger;
     border: 1px solid #00bfa6;
-    margin-left: auto;
+    margin-right: auto;
 }
 
 .points {

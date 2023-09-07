@@ -10,6 +10,7 @@ export default function Home() {
   const [selectedTeam, setSelectedTeam] = useState(-1);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [playerName, setPlayerName] = useState('');
 
   function formatPlayersWithStats(players, stats) {
     const formattedPlayers = [];
@@ -84,6 +85,22 @@ export default function Home() {
     }
   }
 
+  function getFilteredPlayers() {
+    let filtered = [...players];
+    console.log('selectedTeam', selectedTeam);
+    console.log('unfiltered', filtered);
+    if (parseInt(selectedTeam) !== -1) {
+      filtered = filtered.filter((player) => player.playerData.teamID === parseInt(selectedTeam));
+      console.log('filtered by teams', filtered);
+    }
+    if (playerName && playerName !== '') {
+      filtered = filtered.filter((player) => player.playerData.name.toLowerCase().includes(playerName.toLowerCase()));
+    }
+
+
+    return filtered;
+  }
+
 
 
 
@@ -99,7 +116,6 @@ export default function Home() {
         setPlayers(formatted);
       }
       if (fetchedTeams) {
-        console.log(fetchedTeams);
         setTeams(fetchedTeams);
       }
 
@@ -113,7 +129,7 @@ export default function Home() {
     <div className={styles.Home}>
       <div className={styles.background} />
       <div className={styles.control_bar}>
-        <input type='text' placeholder='Player Name'></input>
+        <input type='text' placeholder='Player Name' onChange={(e) => { setPlayerName(e.target.value) }} />
         {
           /* create a teams dropdown if teams are loaded */
           teams.length > 0 && (
@@ -121,7 +137,7 @@ export default function Home() {
               {
                 getTeamsOptions(teams).map((team) => {
                   return (
-                    <option value={team.teamID}>{team.name}</option>
+                    <option value={team.teamID} key={team.teamID}>{team.name}</option>
                   )
                 })
               }
@@ -131,19 +147,21 @@ export default function Home() {
       </div>
       <div className={styles.grid}>
         {
-          players.map((player) => {
+          
+          getFilteredPlayers().map((player) => {
             return (
               <div className={styles.card} key={player.playerData.playerID}>
                 <div className={styles.top_row}>
                   <img className={styles.player_image} src={getImageSource(player.playerData.image)} />
-                  <p>{player.playerData.name} </p>
+                  <p className={styles.name}>{player.playerData.name} </p>
                   <p className={styles.position}>{getTranslatedPosition(player.playerData.position)}</p>
                   <p className={styles.points}>{player.playerData.points}</p>
                 </div>
 
 
                 <div className={styles.market_value_row}>
-                  <p>€{player.playerData.marketValue}</p>
+                  <p>Market Value</p>
+                  <p className={styles.market_value}>€{player.playerData.marketValue}</p>
                 </div>
 
 
