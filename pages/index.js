@@ -27,12 +27,21 @@ const POSITION_FILTER = {
 // 5m - 10m
 // 10+
 
-const PRICE_FILTERS = {
+const PRICE_FILTER = {
   DEFAULT: "All", // Optional, if you want to include a "default" option
   ONE_MILLION: "0M - 1M",
   FIVE_MILLION: "1M - 5M",
   TEN_MILLION: "5M - 10M",
   TEN_PLUS_MILLION: "10M+",
+};
+
+
+const STATUS_FILTER = {
+  DEFAULT: "default", // Optional, if you want to include a "default" option
+  INJURED: "injure",
+  OUT_OF_LEAGUE: "out_of_league",
+  DOUBT: "doubt",
+  AVAILABLE: "ok",
 };
 
 
@@ -50,7 +59,8 @@ export default function Home() {
 
   const [sortBy, setSortBy] = useState(SORT_BY.DEFAULT);
   const [positionFilter, setPositionFilter] = useState(POSITION_FILTER.DEFAULT);
-  const [priceFilter, setPriceFilter] = useState(PRICE_FILTERS.DEFAULT);
+  const [priceFilter, setPriceFilter] = useState(PRICE_FILTER.DEFAULT);
+  const [statusFilter, setStatusFilter] = useState(STATUS_FILTER.DEFAULT);
 
   function formatPlayersWithStats(players, stats) {
     const formattedPlayers = [];
@@ -127,6 +137,8 @@ export default function Home() {
     }
   }
 
+
+
   function getProperStatus(status) {
     switch (status) {
       case 'injure':
@@ -137,6 +149,8 @@ export default function Home() {
         return 'Doubt';
       case 'ok':
         return 'Available';
+      case 'default':
+        return 'All';
       default:
         return status;
     }
@@ -206,13 +220,13 @@ export default function Home() {
 
   function isValueinPriceFiltersRange(value, priceFilter) {
     switch (priceFilter) {
-      case PRICE_FILTERS.ONE_MILLION:
+      case PRICE_FILTER.ONE_MILLION:
         return value <= 1000000;
-      case PRICE_FILTERS.FIVE_MILLION:
+      case PRICE_FILTER.FIVE_MILLION:
         return value > 1000000 && value <= 5000000;
-      case PRICE_FILTERS.TEN_MILLION:
+      case PRICE_FILTER.TEN_MILLION:
         return value > 5000000 && value <= 10000000;
-      case PRICE_FILTERS.TEN_PLUS_MILLION:
+      case PRICE_FILTER.TEN_PLUS_MILLION:
         return value > 10000000;
       default:
         return true;
@@ -236,11 +250,16 @@ export default function Home() {
       filtered = filtered.filter((player) => player.playerData.position === positionFilter);
     }
 
-    if (priceFilter !== PRICE_FILTERS.DEFAULT) {
+    if (priceFilter !== PRICE_FILTER.DEFAULT) {
       console.log('price Filter', priceFilter);
       filtered = filtered.filter((player) => isValueinPriceFiltersRange(player.playerData.marketValue, priceFilter));
     }
 
+
+    if (statusFilter !== STATUS_FILTER.DEFAULT) {
+      console.log('status Filter', statusFilter);
+      filtered = filtered.filter((player) => player.playerData.status === statusFilter);
+    }
 
     console.log('sorted by', sortBy);
     filtered = sortPlayers(filtered, sortBy);
@@ -294,24 +313,24 @@ export default function Home() {
           <p className={styles.filter_title}> Price </p>
           <div className={styles.position_filter}>
             {
-              Object.keys(PRICE_FILTERS).map((key) => {
+              Object.keys(PRICE_FILTER).map((key) => {
                 return (
                   <div
-                    className={` ${priceFilter === PRICE_FILTERS[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
-                    key={key} onClick={() => { setPriceFilter(PRICE_FILTERS[key]); }}>{PRICE_FILTERS[key]}</div>
+                    className={` ${priceFilter === PRICE_FILTER[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
+                    key={key} onClick={() => { setPriceFilter(PRICE_FILTER[key]); }}>{PRICE_FILTER[key]}</div>
                 )
               })
             }
           </div>
 
-          <p className={styles.filter_title}> Injured</p>
+          <p className={styles.filter_title}> Status</p>
           <div className={styles.position_filter}>
             {
-              Object.keys(POSITION_FILTER).map((key) => {
+              Object.keys(STATUS_FILTER).map((key) => {
                 return (
                   <div
-                    className={` ${positionFilter === POSITION_FILTER[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
-                    key={key} onClick={() => { setPositionFilter(POSITION_FILTER[key]); }}>{getPositionFilterNames(POSITION_FILTER[key])}</div>
+                    className={` ${statusFilter === STATUS_FILTER[key] ? styles.selected_position_filter_option : styles.position_filter_option} `}
+                    key={key} onClick={() => { setStatusFilter(STATUS_FILTER[key]); }}>{getProperStatus(STATUS_FILTER[key])}</div>
                 )
               })
             }
@@ -412,10 +431,10 @@ export default function Home() {
         <div className={styles.overlay_bar}>
           <button onClick={() => { setIsFiltering(true) }}>Filter</button>
           {
-            (positionFilter !== POSITION_FILTER.DEFAULT || priceFilter !== PRICE_FILTERS.DEFAULT) &&
+            (positionFilter !== POSITION_FILTER.DEFAULT || priceFilter !== PRICE_FILTER.DEFAULT) &&
             <button onClick={() => {
               setPositionFilter(POSITION_FILTER.DEFAULT)
-              setPriceFilter(PRICE_FILTERS.DEFAULT)
+              setPriceFilter(PRICE_FILTER.DEFAULT)
             }}>Clear Filters</button>
           }
           <button onClick={() => { setIsSorting(true) }}>Sort</button>

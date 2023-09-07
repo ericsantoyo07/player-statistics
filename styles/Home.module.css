@@ -155,6 +155,7 @@
     padding: 20px;
     text-align: center;
     background-color: #111111;
+    cursor: pointer;
 }
 
 .selected_position_filter_option {
@@ -163,6 +164,7 @@
     text-align: center;
     background-color: #00bfa6;
     color: white;
+    cursor: pointer;
 }
 
 .sort_overlay_main {
@@ -413,16 +415,20 @@
 
     .position_filter {
         width: 90%;
+        max-width: 90%;
+        overflow-x: scroll;
     }
+
+  
 
     .filter_title {
         width: 90%;
     }
 
     .filter_overlay_main {
-        width: 90%;
+        width: 100%;
         top: 30%;
-        left: 5%;
+        left: 0%;
         height: 70%;
 
         /* reset the overlay */
