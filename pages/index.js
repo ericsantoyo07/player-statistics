@@ -38,9 +38,9 @@ const PRICE_FILTER = {
 
 const STATUS_FILTER = {
   DEFAULT: "default", // Optional, if you want to include a "default" option
-  INJURED: "injure",
+  INJURED: "injured",
   OUT_OF_LEAGUE: "out_of_league",
-  DOUBT: "doubt",
+  DOUBT: "doubtful",
   AVAILABLE: "ok",
 };
 
@@ -141,11 +141,11 @@ export default function Home() {
 
   function getProperStatus(status) {
     switch (status) {
-      case 'injure':
+      case 'injured':
         return 'Injured';
       case 'out_of_league':
         return 'Out of League';
-      case 'doubt':
+      case 'doubtful':
         return 'Doubt';
       case 'ok':
         return 'Available';
