@@ -12,6 +12,9 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [playerName, setPlayerName] = useState('');
 
+  const [isFiltering, setIsFiltering] = useState(false);
+  const [isSorting, setIsSorting] = useState(false);
+
   function formatPlayersWithStats(players, stats) {
     const formattedPlayers = [];
 
@@ -127,9 +130,44 @@ export default function Home() {
 
   return (
     <div className={styles.Home}>
+
+      {
+        isFiltering &&
+        <div className={styles.filter_overlay}>
+          <div className={styles.filter_overlay_top}>
+            <button onClick={() => { setIsFiltering(false) }}>X</button>
+          </div>
+          <div className={styles.filter_overlay_main}>
+          </div>
+        </div>
+      }
+
+      {
+        isSorting &&
+        <div className={styles.sort_overlay}>
+          <div className={styles.sort_overlay_top}>
+            <button onClick={() => { setIsSorting(false) }}>X</button>
+          </div>
+          <div className={styles.sort_overlay_main}>
+          </div>
+        </div>
+      }
+
+      {
+        isLoading &&
+        <div className={styles.loading_overlay}>
+          <img src='/loading.gif' />
+        </div>
+      }
+
+
       <div className={styles.background} />
+
       <div className={styles.control_bar}>
-        <input type='text' placeholder='Player Name' onChange={(e) => { setPlayerName(e.target.value) }} />
+        {
+          !isLoading &&
+          <input type='text' placeholder='Player Name' onChange={(e) => { setPlayerName(e.target.value) }} />
+        }
         {
           /* create a teams dropdown if teams are loaded */
           teams.length > 0 && (
@@ -147,7 +185,7 @@ export default function Home() {
       </div>
       <div className={styles.grid}>
         {
-          
+
           getFilteredPlayers().map((player) => {
             return (
               <div className={styles.card} key={player.playerData.playerID}>
@@ -182,10 +220,13 @@ export default function Home() {
           })
         }
       </div>
-      <div className={styles.overlay_bar}>
-        <button>Filter</button>
-        <button>Sort</button>
-      </div>
+      {
+        !isLoading &&
+        <div className={styles.overlay_bar}>
+          <button onClick={() => { setIsFiltering(true) }}>Filter</button>
+          <button onClick={() => { setIsSorting(true) }}>Sort</button>
+        </div>
+      }
     </div>
   )
 }
