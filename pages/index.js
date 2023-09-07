@@ -431,10 +431,11 @@ export default function Home() {
         <div className={styles.overlay_bar}>
           <button onClick={() => { setIsFiltering(true) }}>Filter</button>
           {
-            (positionFilter !== POSITION_FILTER.DEFAULT || priceFilter !== PRICE_FILTER.DEFAULT) &&
+            (positionFilter !== POSITION_FILTER.DEFAULT || priceFilter !== PRICE_FILTER.DEFAULT || statusFilter !== STATUS_FILTER.DEFAULT) &&
             <button onClick={() => {
               setPositionFilter(POSITION_FILTER.DEFAULT)
               setPriceFilter(PRICE_FILTER.DEFAULT)
+              setStatusFilter(STATUS_FILTER.DEFAULT)
             }}>Clear Filters</button>
           }
           <button onClick={() => { setIsSorting(true) }}>Sort</button>
