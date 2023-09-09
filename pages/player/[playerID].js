@@ -69,7 +69,7 @@ function PlayerCard({ player, setShowingTab, showingTab = TAB_TYPE.DEFAULT, team
 
 
             {
-                (showingTab !== TAB_TYPE.SHOW_STATS) &&
+                (showingTab !== TAB_TYPE.SHOW_STATS && showingTab !== TAB_TYPE.SHOW_GRAPH) &&
                 <div className={styles.player_card_info}>
 
                     <div className={styles.player_card_info_row}>
@@ -162,13 +162,13 @@ function TabChanger({ showingTab, setShowingTab }) {
                 onClick={() => setShowingTab(TAB_TYPE.DEFAULT)}>
                 Info
             </div>
-            <div className={`${styles.tab_changer_tab} ${showingTab === TAB_TYPE.SHOW_STATS ? styles.tab_changer_tab_selected : ''}`}
-                onClick={() => setShowingTab(TAB_TYPE.SHOW_STATS)}>
-                Stats
-            </div>
             <div className={`${styles.tab_changer_tab} ${showingTab === TAB_TYPE.SHOW_GRAPH ? styles.tab_changer_tab_selected : ''}`}
                 onClick={() => setShowingTab(TAB_TYPE.SHOW_GRAPH)}>
                 Graph
+            </div>
+            <div className={`${styles.tab_changer_tab} ${showingTab === TAB_TYPE.SHOW_STATS ? styles.tab_changer_tab_selected : ''}`}
+                onClick={() => setShowingTab(TAB_TYPE.SHOW_STATS)}>
+                Stats
             </div>
         </div>
     )
@@ -237,7 +237,6 @@ const Player = () => {
             <div className={styles.player_main_container}>
                 <GoBack />
                 <PlayerCard player={player} setShowingTab={setShowingTab} showingTab={showingTab} team={team} />
-                <TabChanger showingTab={showingTab} setShowingTab={setShowingTab} />
                 {
                     showingTab === TAB_TYPE.SHOW_STATS &&
                     <PlayerStatsCard stats={stats} />
@@ -246,6 +245,7 @@ const Player = () => {
                     showingTab === TAB_TYPE.SHOW_GRAPH &&
                     <PlayerPriceGraph player={player} isSmallDevice={isSmallDevice} />
                 }
+                <TabChanger showingTab={showingTab} setShowingTab={setShowingTab} />
             </div>
         )
 

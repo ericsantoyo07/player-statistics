@@ -88,10 +88,10 @@ function LineChart({ chartData, isSmallDevice }) {
     return (
         <div
             style={{
-                width: isSmallDevice ? '100%' : '100%', height: '100%',
                 flex: 1,
-                backgroundColor: '#111111', display: 'flex',
-                justifyContent: 'center', alignItems: 'center',
+                width: '100%', height: '100%',
+                backgroundColor: '#111111',
+                display: 'flex', justifyContent: 'center', alignItems: 'center',
                 padding: isSmallDevice ? '15px' : '30px',
 
             }}>
