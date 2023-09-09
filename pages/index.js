@@ -21,12 +21,6 @@ const POSITION_FILTER = {
   STR: "Delantero",
 };
 
-
-// 0m - 1m
-// 1m - 5m
-// 5m - 10m
-// 10+
-
 const PRICE_FILTER = {
   DEFAULT: "All", // Optional, if you want to include a "default" option
   ONE_MILLION: "0M - 1M",
@@ -263,7 +257,28 @@ export default function Home() {
 
     console.log('sorted by', sortBy);
     filtered = sortPlayers(filtered, sortBy);
+
+    console.log('filtered', filtered);
     return filtered;
+
+  }
+
+
+  function getWeeksTotalPointsFromStats(player) {
+    const stats = player.stats;
+    let points = [];
+
+    for (const stat of stats) {
+      points.push({
+        week: stat.week,
+        points: stat.totalPoints
+      }
+      );
+    }
+
+    // sort by week, less to high
+    points.sort((a, b) => a.week - b.week);
+    return points;
   }
 
 
@@ -418,6 +433,19 @@ export default function Home() {
                   }
                   <p className={styles.status}> {getProperStatus(player.playerData.status)}</p>
 
+                </div>
+
+                <div className={styles.stats_points_row}>
+                  {
+                    getWeeksTotalPointsFromStats(player).map((point) => {
+                      return (
+                        <div className={styles.week_points} key={point.week}>
+                          <p>{point.points}</p>
+                        </div>
+                      )
+                    })
+
+                  }
                 </div>
 
               </div>
