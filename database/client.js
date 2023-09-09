@@ -49,6 +49,7 @@ async function getPlayerById(id) {
 }
 
 async function getTeamByTeamID(teamID) {
+    if(!teamID) return { data: null, error: "No teamID provided"}
     const { data, error } = await supabase
         .from('teams')
         .select('*')

@@ -15,7 +15,6 @@ ChartJS.register(
 
 function LineChart({ chartData, isSmallDevice }) {
 
-    if (!chartData) return null;
 
     const charRef = useRef(null);
 
@@ -95,7 +94,16 @@ function LineChart({ chartData, isSmallDevice }) {
                 padding: isSmallDevice ? '15px' : '30px',
 
             }}>
-            <Line data={data} options={options} ref={charRef} />
+            {
+                mainData && mainData.length > 0 &&
+                <Line data={data} options={options} ref={charRef} />
+            }
+            {
+                (!mainData || mainData.length === 0) &&
+                <div style={{ color: 'white' }}>
+                    No data available. Cannot display market value chart.
+                </div>
+            }
 
         </div>
     );
