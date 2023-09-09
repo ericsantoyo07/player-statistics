@@ -48,4 +48,13 @@ async function getPlayerById(id) {
     };
 }
 
-export { getAllPlayers, getAllStats, getAllTeams, getPlayerById };
+async function getTeamByTeamID(teamID) {
+    const { data, error } = await supabase
+        .from('teams')
+        .select('*')
+        .eq('teamID', teamID)
+
+    return { data, error };
+}
+
+export { getAllPlayers, getAllStats, getAllTeams, getPlayerById, getTeamByTeamID };

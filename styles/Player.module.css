@@ -102,12 +102,22 @@
     background-color: #1b1b1b;
     border: 1px solid black;
     border-bottom: none;
+
+    position: relative;
 }
 
 
-.player_card_image_container > img {
+.player_card_image {
     width: 256px;
     height: max-content;
+}
+
+.player_card_team_image {
+    width: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    cursor: pointer;
 }
 
 
@@ -163,6 +173,9 @@
 
 .player_card_info_position {
     color: #8f8f8f;
+    padding: 10px;
+    width: max-content;
+    border: 1px solid #00bfa6;
 }
 
 .player_card_info_value_title {
@@ -184,16 +197,58 @@
     color: white;
     font-weight: bolder;
     font-size: larger;
+    color: #00bfa6;
 
 }
 
 .go_to_home {
     color: white;
+    padding: 20px;
+    cursor: pointer;
+    font-size: larger;
+    font-weight: bolder;
+    width: max-content;
 }
+.go_to_home:hover {
+    text-decoration: underline;
+}
+
+
+.tab_changer {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1b1b1b;
+    border-bottom: none;
+}
+
+.tab_changer_tab {
+    width: 50%;
+    height: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #1b1b1b;
+    color: white;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.tab_changer_tab_selected {
+    background-color: #00bfa6;
+    color: white;
+}
+
+
 
 
 /* mobile */
 @media only screen and (max-width: 768px) {
+
 
     .player_main_container {
         width: 100%;
@@ -208,7 +263,6 @@
         height: max-content;
         display: flex;
         flex-direction: column;
-        background-color: #2b2b2b;
     }
     .player_main_container_right {
         width: 100%;
@@ -219,6 +273,7 @@
 
     .player_card_image_container {
         width: 100%;
+        border: none;
     }
     .player_card_info {
         display: flex;
@@ -229,27 +284,54 @@
         width: 100%;
         flex-direction: column;
         padding: 0px;
+        border: none;
     }
 
     .player_card_info_container_right{
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
         width: 100%;
+        padding: 10px;
     }
     .player_card_info_container_left {
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
         width: 100%;
+        padding: 10px;
     }
     .player_stats_card {
         height: max-content;
-        overflow: unset;
-        background-color: #2b2b2b;
+        flex: 1;
     }
     .player_price_graph {
         height: max-content;
-        overflow: unset;
-        background-color: #2b2b2b;
+        flex: 1;
+    }
+
+    .go_to_home {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+
+        font-size: larger;
+        font-weight: bolder;
+        color: white;
+        z-index: 100;
+    }
+    .go_to_home:hover {
+        text-decoration: underline;
+    }
+
+    .player_card_team_image {
+        width: 50px;
+        position: absolute;
+        bottom: 0;
+        left: calc(25% - 50px);
+        cursor: pointer;
     }
 
 }
