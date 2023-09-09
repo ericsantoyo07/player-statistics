@@ -124,9 +124,17 @@ function PlayerStatsCard({ stats }) {
     return (
         <div className={styles.player_stats_card}>
             {
-                JSON.stringify(stats)
+                (!stats || stats.length === 0) &&
+                <div className={styles.player_stats_card_empty}>
+                    No statistics about the player available
+                </div>
             }
-            player stats card
+            {
+                stats && stats.length > 0 &&
+                <div className={styles.player_stats_card_stats}>
+                    {JSON.stringify(stats)}
+                </div>
+            }
         </div>
     )
 }
