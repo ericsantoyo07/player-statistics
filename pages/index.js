@@ -1,5 +1,6 @@
 import { getAllPlayers, getAllStats, getAllTeams } from '@/database/client';
 import styles from '@/styles/Home.module.css'
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react'
 
 
@@ -40,6 +41,8 @@ const STATUS_FILTER = {
 
 
 export default function Home() {
+
+  const router = useRouter();
 
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState([]);
@@ -417,7 +420,7 @@ export default function Home() {
           getFilteredPlayers().map((player) => {
             return (
               <div className={styles.card} key={player.playerData.playerID}>
-                <div className={styles.top_row}>
+                <div className={styles.top_row} onClick={() => { router.push(`/player/${player.playerData.playerID}`) }}>
                   <img className={styles.player_image} src={getImageSource(player.playerData.image)} />
                   <p className={styles.name}>{player.playerData.name} </p>
                   <p className={styles.position}>{getTranslatedPosition(player.playerData.position)}</p>

@@ -21,4 +21,31 @@ async function getAllTeams() {
     return { data, error };
 }
 
-export { getAllPlayers, getAllStats, getAllTeams };
+async function getPlayerById(id) {
+    let { data: playerData } = await supabase
+        .from('players')
+        .select('*')
+        .eq('playerID', id)
+
+    let { data: playerStat } = await supabase
+        .from('stats')
+        .select('*')
+        .eq('playerID', id)
+
+
+    let player = null;
+    let stats = [];
+    if(playerData && playerData.length > 0) {
+        player = playerData[0];
+    }
+
+    if(playerStat && playerStat.length > 0) {
+        stats = playerStat;
+    }
+    return {
+        player,
+        stats
+    };
+}
+
+export { getAllPlayers, getAllStats, getAllTeams, getPlayerById };

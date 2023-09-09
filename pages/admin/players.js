@@ -88,6 +88,28 @@ const Players = () => {
         }
     }
 
+    // https://api-fantasy.llt-services.com/api/v3/player/1308/market-value?x-lang=en
+    const fetchMarketValues = async (playerId) => {
+        const baseUrl = 'https://api-fantasy.llt-services.com';
+        const endpoint = `/api/v3/player/${playerId}/market-value?x-lang=en`;
+
+        const url = `https://nextjs-cors-anywhere.vercel.app/api?endpoint=${baseUrl}${endpoint}?x-lang=en`;
+
+        try {
+            const response = await fetch(url, { method: 'GET' });
+
+            if (response.status === 404 || !response.ok) {
+                return null;
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            // console.log('There was a problem with the fetch operation:', error);
+            return null;
+        }
+    }
+
 
 
 
@@ -227,6 +249,7 @@ const Players = () => {
             let teamID = data[i].team?.id ? parseInt(data[i].team.id) : null;
             let image = findImage(data[i].images);
             let points = data[i].points;
+            let marketValues = data[i].marketValues;
 
 
             const player = {
@@ -240,7 +263,8 @@ const Players = () => {
                 averagePoints: averagePoints,
                 points: points,
                 teamID: teamID,
-                image: image
+                image: image,
+                marketValues: marketValues
             }
 
             const stats = formatPlayerStats(data[i].playerStats, playerID);
@@ -260,12 +284,23 @@ const Players = () => {
         }
     }
 
+    const formatMarketValues = (marketValues, playerId) => {
+        return {
+            playerID: playerId,
+            marketValues: marketValues
+        }
+    }
+
     async function getPlayers() {
         let players = [];
         for (let playerId = currentIndex; playerId < endingIndex; playerId++) {
             const data = await fetchData(playerId);
+            const marketValues = await fetchMarketValues(playerId);
+           
             setCurrentIndex(playerId);
             if (data) {
+                // add market values to the data object
+                data.marketValues = marketValues;
                 players.push(data);
                 console.log(data);
                 console.log("Player name: " + data.name);
