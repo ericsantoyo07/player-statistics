@@ -92,7 +92,7 @@ function LineChart({ chartData, isSmallDevice }) {
                 flex: 1,
                 backgroundColor: '#111111', display: 'flex',
                 justifyContent: 'center', alignItems: 'center',
-                padding: isSmallDevice ? '5px' : '30px',
+                padding: isSmallDevice ? '15px' : '30px',
 
             }}>
             <Line data={data} options={options} ref={charRef} />
