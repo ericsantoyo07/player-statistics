@@ -89,16 +89,14 @@ function LineChart({ chartData, isSmallDevice }) {
         <div
             style={{
                 width: isSmallDevice ? '100%' : '100%', height: '100%',
+                flex: 1,
                 backgroundColor: '#111111', display: 'flex',
                 justifyContent: 'center', alignItems: 'center',
-                padding: '30px', margin: isSmallDevice ? '0px' : '0px 0px 0px 0px'
+                padding: isSmallDevice ? '5px' : '30px',
+
             }}>
             <Line data={data} options={options} ref={charRef} />
 
-            <div className='tooltip' style={{ top: tooltip.top, left: tooltip.left, opacity: tooltip.opacity }}>
-                <p>{tooltip.date} </p>
-                <p>{tooltip.value} </p>
-            </div>
         </div>
     );
 }
