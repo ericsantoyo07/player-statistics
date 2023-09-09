@@ -278,7 +278,14 @@ export default function Home() {
 
     // sort by week, less to high
     points.sort((a, b) => a.week - b.week);
-    return points;
+
+    // return an array of max 4 points (last 4)
+    if (points.length > 4) {
+      return points.slice(points.length - 4, points.length);
+    }
+    else {
+      return points;
+    }
   }
 
 
