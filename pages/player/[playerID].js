@@ -1,10 +1,13 @@
 "use client";
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styles from '@/styles/Player.module.css'
 import { useState } from 'react'
 import { getPlayerById, getTeamByTeamID } from '@/database/client';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useRouter } from 'next/router';
+import LineChart from '@/components/LineChart';
+
+
 
 const TAB_TYPE = {
     DEFAULT: 'DEFAULT',
@@ -56,14 +59,17 @@ function PlayerCard({ player, setShowingTab, showingTab = TAB_TYPE.DEFAULT, team
         }}>
 
             <div className={styles.player_card_image_container}>
-                <img className={styles.player_card_image}src={getImageSource(player.image)} />
-                <img className={styles.player_card_team_image} src={getTeamImageSource(team.image)} />
+                <img className={styles.player_card_image} src={getImageSource(player.image)} />
+                {
+                    team &&
+                    <img className={styles.player_card_team_image} src={getTeamImageSource(team.image)} />
+                }
             </div>
 
 
 
             {
-                (showingTab !== TAB_TYPE.SHOW_GRAPH && showingTab !== TAB_TYPE.SHOW_STATS) &&
+                (showingTab !== TAB_TYPE.SHOW_STATS) &&
                 <div className={styles.player_card_info}>
 
                     <div className={styles.player_card_info_row}>
@@ -125,12 +131,11 @@ function PlayerStatsCard({ stats }) {
     )
 }
 
-function PlayerPriceGraph({ player }) {
+
+function PlayerPriceGraph({ player, isSmallDevice }) {
     return (
         <div className={styles.player_price_graph}>
-            {
-                JSON.stringify(player.marketValues)
-            }
+            <LineChart chartData={player.marketValues} isSmallDevice={isSmallDevice} />
         </div>
     )
 }
@@ -202,7 +207,8 @@ const Player = () => {
             const { data: fetchedTeam } = await getTeamByTeamID(fetchedPlayer.teamID);
             setPlayer(fetchedPlayer);
             setStats(fetchedStats);
-            setTeam(fetchedTeam[0]);
+            if (fetchedTeam && fetchedTeam.length > 0)
+                setTeam(fetchedTeam[0]);
             setIsLoading(false);
         }
         if (playerID) {
@@ -238,7 +244,7 @@ const Player = () => {
                 }
                 {
                     showingTab === TAB_TYPE.SHOW_GRAPH &&
-                    <PlayerPriceGraph player={player} />
+                    <PlayerPriceGraph player={player} isSmallDevice={isSmallDevice} />
                 }
             </div>
         )

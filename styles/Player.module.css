@@ -66,6 +66,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    padding: 20px;
 
     overflow-y: scroll;
     scrollbar-width: none;
@@ -99,7 +100,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #1b1b1b;
+    background-color: #111111;
     border: 1px solid black;
     border-bottom: none;
 
@@ -108,8 +109,9 @@
 
 
 .player_card_image {
-    width: 256px;
+    width: 180px;
     height: max-content;
+    border-bottom: 1px solid #00bfa6;
 }
 
 .player_card_team_image {
@@ -136,8 +138,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 20px;
-    background-color: #1b1b1b;
+    padding: 10px;
+    background-color: #111111;
     border-left: 1px solid black;
     border-right: 1px solid black;
 }
@@ -167,9 +169,9 @@
     color: white;
     font-weight: bolder;
     font-size: larger;
-
-
+    text-align: right;
 }
+
 
 .player_card_info_position {
     color: #8f8f8f;
@@ -273,6 +275,9 @@
 
     .player_card_image_container {
         width: 100%;
+        border: none;
+    }
+    .player_card_image {
         border: none;
     }
     .player_card_info {
