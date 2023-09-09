@@ -1,6 +1,7 @@
 .loading_overlay {
     width: 100%;
     height: 100%;
+
     background-color: #2b2b2b;
     display: flex;
     justify-content: center;
@@ -10,4 +11,245 @@
 .loading_overlay>img {
     height: 50px;
     width: 50px;
+}
+
+.player_main_container {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    display: flex;
+    background-color: #2b2b2b;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+
+.player_main_container_left {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+.player_main_container_right {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+
+
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+}
+
+.player_main_container_right::-webkit-scrollbar {
+    display: none;
+}
+
+.player_card {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+}
+.player_stats_card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    
+
+}
+
+.player_stats_card::-webkit-scrollbar {
+    display: none;
+}
+.player_price_graph{
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.player_price_graph::-webkit-scrollbar {
+    display: none;
+}
+
+.player_card_image_container {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1b1b1b;
+    border: 1px solid black;
+    border-bottom: none;
+}
+
+
+.player_card_image_container > img {
+    width: 256px;
+    height: max-content;
+}
+
+
+.player_card_info {
+    width: 100%;
+    background-color: #2b2b2b;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.player_card_info_row {
+    width: 50%;
+    height: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #1b1b1b;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.player_card_info_row:last-child {
+    border-bottom: 1px solid black;
+}
+
+.player_card_info_container_left {
+    width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.player_card_info_container_right {
+    width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.player_card_info_name {
+    color: white;
+    font-weight: bolder;
+    font-size: larger;
+
+
+}
+
+.player_card_info_position {
+    color: #8f8f8f;
+}
+
+.player_card_info_value_title {
+    color: #8f8f8f;
+    text-align: left;
+}
+
+.player_card_info_title {
+    color: #8f8f8f;
+    text-align: center;
+
+
+}
+
+
+
+
+.player_card_info_value {
+    color: white;
+    font-weight: bolder;
+    font-size: larger;
+
+}
+
+.go_to_home {
+    color: white;
+}
+
+
+/* mobile */
+@media only screen and (max-width: 768px) {
+
+    .player_main_container {
+        width: 100%;
+        height: max-content;
+        display: flex;
+        flex-direction: column;
+        background-color: #2b2b2b;
+    }
+
+    .player_main_container_left {
+        width: 100%;
+        height: max-content;
+        display: flex;
+        flex-direction: column;
+        background-color: #2b2b2b;
+    }
+    .player_main_container_right {
+        width: 100%;
+        height: max-content;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .player_card_image_container {
+        width: 100%;
+    }
+    .player_card_info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .player_card_info_row {
+        width: 100%;
+        flex-direction: column;
+        padding: 0px;
+    }
+
+    .player_card_info_container_right{
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .player_card_info_container_left {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .player_stats_card {
+        height: max-content;
+        overflow: unset;
+        background-color: #2b2b2b;
+    }
+    .player_price_graph {
+        height: max-content;
+        overflow: unset;
+        background-color: #2b2b2b;
+    }
+
 }

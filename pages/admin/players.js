@@ -284,13 +284,6 @@ const Players = () => {
         }
     }
 
-    const formatMarketValues = (marketValues, playerId) => {
-        return {
-            playerID: playerId,
-            marketValues: marketValues
-        }
-    }
-
     async function getPlayers() {
         let players = [];
         for (let playerId = currentIndex; playerId < endingIndex; playerId++) {
