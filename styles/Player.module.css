@@ -441,6 +441,10 @@
         color: white;
     }
 
+    .go_to_home > select {
+        margin-right: 10px;
+    }
+
 
 
 }

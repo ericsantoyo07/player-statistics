@@ -48,15 +48,12 @@ function getTranslatedPosition(position) {
 
 
 
-function PlayerCard({ player, setShowingTab, showingTab = TAB_TYPE.DEFAULT, team }) {
+function PlayerCard({ player, showingTab = TAB_TYPE.DEFAULT, team }) {
 
 
 
     return (
-        <div className={styles.player_card} onClick={() => {
-            if (setShowingTab)
-                setShowingTab(TAB_TYPE.DEFAULT)
-        }}>
+        <div className={styles.player_card}>
 
             <div className={styles.player_card_image_container}>
                 <img className={styles.player_card_image} src={getImageSource(player.image)} />
@@ -416,7 +413,7 @@ const Player = () => {
                     showingTab === TAB_TYPE.SHOW_GRAPH &&
                     <PlayerPriceGraph player={player} isSmallDevice={isSmallDevice} />
                 }
-                <TabChanger showingTab={showingTab} setShowingTab={setShowingTab} />
+                <TabChanger showingTab={showingTab} />
             </div>
         )
 
