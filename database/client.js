@@ -58,4 +58,14 @@ async function getTeamByTeamID(teamID) {
     return { data, error };
 }
 
-export { getAllPlayers, getAllStats, getAllTeams, getPlayerById, getTeamByTeamID };
+async function getPlayersByTeamID(teamID) { 
+    if(!teamID) return { data: null, error: "No teamID provided"}
+    const { data, error } = await supabase
+        .from('players')
+        .select('*')
+        .eq('teamID', teamID)
+
+    return { data, error };
+}
+
+export { getAllPlayers, getAllStats, getAllTeams, getPlayerById, getTeamByTeamID , getPlayersByTeamID};
