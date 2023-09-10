@@ -92,11 +92,20 @@ function LineChart({ chartData, isSmallDevice }) {
                 backgroundColor: '#111111',
                 display: 'flex', justifyContent: 'center', alignItems: 'center',
                 padding: isSmallDevice ? '15px' : '30px',
+                flexDirection: 'column',
+                gap: "10px"
 
             }}>
             {
                 mainData && mainData.length > 0 &&
                 <Line data={data} options={options} ref={charRef} />
+            }
+            {
+                mainData && mainData.length > 0 &&
+                <div style={{ color: 'white' }}>
+                    Line chart : Market Values
+                </div>
+
             }
             {
                 (!mainData || mainData.length === 0) &&

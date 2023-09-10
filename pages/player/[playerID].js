@@ -48,20 +48,20 @@ function getTranslatedPosition(position) {
 
 function getProperStatus(status) {
     switch (status) {
-      case 'injured':
-        return 'Injured';
-      case 'out_of_league':
-        return 'Out of League';
-      case 'doubtful':
-        return 'Doubt';
-      case 'ok':
-        return 'Available';
-      case 'default':
-        return 'All';
-      default:
-        return status;
+        case 'injured':
+            return 'Injured';
+        case 'out_of_league':
+            return 'Out of League';
+        case 'doubtful':
+            return 'Doubt';
+        case 'ok':
+            return 'Available';
+        case 'default':
+            return 'All';
+        default:
+            return status;
     }
-  }
+}
 
 
 function PlayerCard({ player, showingTab = TAB_TYPE.DEFAULT, team }) {
