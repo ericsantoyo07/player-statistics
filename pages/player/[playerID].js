@@ -120,19 +120,128 @@ function PlayerCard({ player, setShowingTab, showingTab = TAB_TYPE.DEFAULT, team
 
 }
 
-function PlayerStatsCard({ stats }) {
+function PlayerStatsCard({ stat }) {
+
+
+    if (stat && stat.length > 0) stat = stat[0];
+    else stat = null;
+
+
+    // {"playerID":1300,"ball_recovery":[6,1],"effective_clearance":[1,0],"goal_assist":[0,0],"goals":[0,0],"goals_conceded":[1,0],"isInIdealFormation":false,"marca_points":[-1,2],"mins_played":[45,1],"offtarget_att_assist":[0,0],"own_goals":[0,0],"pen_area_entries":[1,0],"penalty_conceded":[0,0],"penalty_failed":[0,0],"penalty_save":[0,0],"penalty_won":[0,0],"poss_lost_all":[5,0],"red_card":[0,0],"saves":[0,0],"second_yellow_card":[0,0],"totalPoints":4,"total_scoring_att":[1,0],"week":4,"won_contest":[1,0],"yellow_card":[0,0]}
+
+
     return (
         <div className={styles.player_stats_card}>
             {
-                (!stats || stats.length === 0) &&
+                (!stat) &&
                 <div className={styles.player_stats_card_empty}>
                     No statistics about the player available
                 </div>
             }
             {
-                stats && stats.length > 0 &&
+                stat &&
                 <div className={styles.player_stats_card_stats}>
-                    {JSON.stringify(stats)}
+                    <div className={styles.statsTable}>
+                        {/* week */}
+                        <div className={styles.stat_week}></div>
+                        <div className={styles.stat_week}></div>
+                        <div className={styles.stat_week}>{`Week : ` + stat.week}</div>
+
+                        <div className={styles.header}>Amount</div>
+                        <div className={styles.header}>Stats</div>
+                        <div className={styles.header}>Points</div>
+                        {/* ball_recovery */}
+                        <div className={styles.data}>{stat.ball_recovery[0]}</div>
+                        <div className={styles.data}>Ball Recovery</div>
+                        <div className={styles.data}>{stat.ball_recovery[1]}</div>
+                        {/* effective_clearance */}
+                        <div className={styles.data}>{stat.effective_clearance[0]}</div>
+                        <div className={styles.data}>Effective Clearance</div>
+                        <div className={styles.data}>{stat.effective_clearance[1]}</div>
+                        {/* goal_assist */}
+                        <div className={styles.data}>{stat.goal_assist[0]}</div>
+                        <div className={styles.data}>Goal Assist</div>
+                        <div className={styles.data}>{stat.goal_assist[1]}</div>
+                        {/* goals */}
+                        <div className={styles.data}>{stat.goals[0]}</div>
+                        <div className={styles.data}>Goals</div>
+                        <div className={styles.data}>{stat.goals[1]}</div>
+                        {/* goals_conceded */}
+                        <div className={styles.data}>{stat.goals_conceded[0]}</div>
+                        <div className={styles.data}>Goals Conceded</div>
+                        <div className={styles.data}>{stat.goals_conceded[1]}</div>
+                        {/* marca_points */}
+                        <div className={styles.data}>{stat.marca_points[0]}</div>
+                        <div className={styles.data}>Marca Points</div>
+                        <div className={styles.data}>{stat.marca_points[1]}</div>
+                        {/* mins_played */}
+                        <div className={styles.data}>{stat.mins_played[0]}</div>
+                        <div className={styles.data}>Minutes Played</div>
+                        <div className={styles.data}>{stat.mins_played[1]}</div>
+                        {/* offtarget_att_assist */}
+                        <div className={styles.data}>{stat.offtarget_att_assist[0]}</div>
+                        <div className={styles.data}>Offtarget Att Assist</div>
+                        <div className={styles.data}>{stat.offtarget_att_assist[1]}</div>
+                        {/* own_goals */}
+                        <div className={styles.data}>{stat.own_goals[0]}</div>
+                        <div className={styles.data}>Own Goals</div>
+                        <div className={styles.data}>{stat.own_goals[1]}</div>
+                        {/* pen_area_entries */}
+                        <div className={styles.data}>{stat.pen_area_entries[0]}</div>
+                        <div className={styles.data}>Pen Area Entries</div>
+                        <div className={styles.data}>{stat.pen_area_entries[1]}</div>
+                        {/* penalty_conceded */}
+                        <div className={styles.data}>{stat.penalty_conceded[0]}</div>
+                        <div className={styles.data}>Penalty Conceded</div>
+                        <div className={styles.data}>{stat.penalty_conceded[1]}</div>
+                        {/* penalty_failed */}
+                        <div className={styles.data}>{stat.penalty_failed[0]}</div>
+                        <div className={styles.data}>Penalty Failed</div>
+                        <div className={styles.data}>{stat.penalty_failed[1]}</div>
+                        {/* penalty_save */}
+                        <div className={styles.data}>{stat.penalty_save[0]}</div>
+                        <div className={styles.data}>Penalty Save</div>
+                        <div className={styles.data}>{stat.penalty_save[1]}</div>
+                        {/* penalty_won */}
+                        <div className={styles.data}>{stat.penalty_won[0]}</div>
+                        <div className={styles.data}>Penalty Won</div>
+                        <div className={styles.data}>{stat.penalty_won[1]}</div>
+                        {/* poss_lost_all */}
+                        <div className={styles.data}>{stat.poss_lost_all[0]}</div>
+                        <div className={styles.data}>Poss Lost All</div>
+                        <div className={styles.data}>{stat.poss_lost_all[1]}</div>
+                        {/* red_card */}
+                        <div className={styles.data}>{stat.red_card[0]}</div>
+                        <div className={styles.data}>Red Card</div>
+                        <div className={styles.data}>{stat.red_card[1]}</div>
+                        {/* saves */}
+                        <div className={styles.data}>{stat.saves[0]}</div>
+                        <div className={styles.data}>Saves</div>
+                        <div className={styles.data}>{stat.saves[1]}</div>
+                        {/* second_yellow_card */}
+                        <div className={styles.data}>{stat.second_yellow_card[0]}</div>
+                        <div className={styles.data}>Second Yellow Card</div>
+                        <div className={styles.data}>{stat.second_yellow_card[1]}</div>
+                        {/* totalPoints */}
+                        <div className={styles.data}>{stat.totalPoints}</div>
+                        <div className={styles.data}>Total Points</div>
+                        <div className={styles.data}>{stat.totalPoints}</div>
+                        {/* total_scoring_att */}
+                        <div className={styles.data}>{stat.total_scoring_att[0]}</div>
+                        <div className={styles.data}>Total Scoring Att</div>
+                        <div className={styles.data}>{stat.total_scoring_att[1]}</div>
+                        {/* won_contest */}
+                        <div className={styles.data}>{stat.won_contest[0]}</div>
+                        <div className={styles.data}>Won Contest</div>
+                        <div className={styles.data}>{stat.won_contest[1]}</div>
+                        {/* yellow_card */}
+                        <div className={styles.data}>{stat.yellow_card[0]}</div>
+                        <div className={styles.data}>Yellow Card</div>
+                        <div className={styles.data}>{stat.yellow_card[1]}
+
+                        </div>
+                    </div>
+
                 </div>
             }
         </div>
@@ -148,7 +257,8 @@ function PlayerPriceGraph({ player, isSmallDevice }) {
     )
 }
 
-function GoBack() {
+function GoBack({ showWeekDropdown, selectedWeek, setSelectedWeek, weeks }) {
+
 
     const router = useRouter();
     return (
@@ -156,6 +266,21 @@ function GoBack() {
             <p onClick={() => router.push('/')}>
                 Home
             </p>
+
+            {
+                showWeekDropdown && weeks && weeks.length > 0 &&
+                <select value={selectedWeek} onChange={(e) => {
+                    setSelectedWeek(parseInt(e.target.value));
+                }}
+                >
+                    {
+                        weeks.map((week, index) => (
+                            <option key={index} value={week}>{week}</option>
+                        ))
+                    }
+                </select>
+
+            }
         </div>
     )
 }
@@ -196,6 +321,10 @@ const Player = () => {
     const [team, setTeam] = useState(null);
     const [showingTab, setShowingTab] = useState(TAB_TYPE.DEFAULT);
 
+    const [selectedWeek, setSelectedWeek] = useState(null);
+    const [weeks, setWeeks] = useState([]);
+    const [selectedWeekStats, setSelectedWeekStats] = useState(null);
+
 
 
 
@@ -225,6 +354,31 @@ const Player = () => {
     }, [playerID]);
 
 
+    useEffect(() => {
+
+        if (stats) {
+            // sort stats by week
+            const sortedStats = stats.sort((a, b) => { return a.week - b.week });
+            setSelectedWeek(sortedStats[sortedStats.length - 1]?.week);
+            let statWeeks = sortedStats.map((stat) => stat.week);
+            setWeeks(statWeeks);
+        }
+
+    }, [stats]);
+
+
+    useEffect(() => {
+        const processedSelectedWeeksStats = stats.filter((stat) => stat.week === selectedWeek);
+        // console.log('selected week is : ', selectedWeek);
+        // console.log('stats are : ', stats);
+        // console.log('processedSelectedWeeksStats are : ', processedSelectedWeeksStats);
+        setSelectedWeekStats(processedSelectedWeeksStats);
+    }, [selectedWeek]);
+
+
+
+
+
 
     if (!playerID || isLoading) return (
         <div className={styles.loading_overlay}>
@@ -243,11 +397,14 @@ const Player = () => {
         return (
 
             <div className={styles.player_main_container}>
-                <GoBack />
+                <GoBack showWeekDropdown={TAB_TYPE.SHOW_STATS === showingTab} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} weeks={weeks} />
+                <p>
+                    selectedWeek
+                </p>
                 <PlayerCard player={player} setShowingTab={setShowingTab} showingTab={showingTab} team={team} />
                 {
                     showingTab === TAB_TYPE.SHOW_STATS &&
-                    <PlayerStatsCard stats={stats} />
+                    <PlayerStatsCard stat={selectedWeekStats} />
                 }
                 {
                     showingTab === TAB_TYPE.SHOW_GRAPH &&
@@ -264,8 +421,8 @@ const Player = () => {
     return (
         <div className={styles.player_main_container}>
             <div className={styles.player_main_container_left}>
-                <GoBack />
-                <PlayerStatsCard stats={stats} />
+                <GoBack showWeekDropdown={true} selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} weeks={weeks} />
+                <PlayerStatsCard stat={selectedWeekStats} />
             </div>
 
             <div className={styles.player_main_container_right}>

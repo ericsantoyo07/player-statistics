@@ -232,36 +232,28 @@ export default function Home() {
 
   function getFilteredPlayers() {
     let filtered = [...players];
-    console.log('selectedTeam', selectedTeam);
-    console.log('unfiltered', filtered);
     if (parseInt(selectedTeam) !== -1) {
       filtered = filtered.filter((player) => player.playerData.teamID === parseInt(selectedTeam));
-      console.log('filtered by teams', filtered);
     }
     if (playerName && playerName !== '') {
       filtered = filtered.filter((player) => player.playerData.name.toLowerCase().includes(playerName.toLowerCase()));
     }
 
     if (positionFilter !== POSITION_FILTER.DEFAULT) {
-      console.log('position Filter', positionFilter);
       filtered = filtered.filter((player) => player.playerData.position === positionFilter);
     }
 
     if (priceFilter !== PRICE_FILTER.DEFAULT) {
-      console.log('price Filter', priceFilter);
       filtered = filtered.filter((player) => isValueinPriceFiltersRange(player.playerData.marketValue, priceFilter));
     }
 
 
     if (statusFilter !== STATUS_FILTER.DEFAULT) {
-      console.log('status Filter', statusFilter);
       filtered = filtered.filter((player) => player.playerData.status === statusFilter);
     }
 
-    console.log('sorted by', sortBy);
     filtered = sortPlayers(filtered, sortBy);
 
-    console.log('filtered', filtered);
     return filtered;
 
   }

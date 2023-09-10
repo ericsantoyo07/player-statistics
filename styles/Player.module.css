@@ -215,11 +215,87 @@
     font-size: larger;
     font-weight: bolder;
     width: 100%;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 .go_to_home:hover {
     text-decoration: underline;
 }
+
+.go_to_home>select {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    outline: none;
+    border: 1px solid #18dbc8;
+    background-color: transparent;
+    color: white;
+
+    scrollbar-width: none;
+    /*For Firefox*/
+    ;
+    -ms-overflow-style: none;
+    /*For Internet Explorer 10+*/
+    ;
+
+}
+
+/* REMOVE SCROLLBAR FROM SELECT */
+.go_to_home>select::-webkit-scrollbar {
+    display: none;
+}
+
+.go_to_home>select>option {
+    background-color: #2b2b2b;
+    color: white;
+}
+
+/* styles.css or your preferred stylesheet file */
+
+.statsTable {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+.header {
+    font-weight: bold;
+    padding: 5px;
+    border: 1px solid #00bfa6;
+    color: white;
+    text-align: center;
+}
+
+.data {
+    padding: 5px;
+    border: 1px solid #00bfa6;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.stat_week {
+    padding: 5px;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+}
+
+.stat_week:nth-child(3) {
+    justify-content: end;
+    font-weight: bold;
+}
+
 
 
 
@@ -276,6 +352,7 @@
         padding: 0px;
         border: none;
     }
+
     .player_card_info_row:last-child {
         border: none;
     }
@@ -311,7 +388,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: max-content;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
         padding: 10px;
 
         font-size: larger;
