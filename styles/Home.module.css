@@ -333,6 +333,7 @@
     border-radius: 50%;
     border: 1px solid #00bfa6;
     padding: 5px;
+    cursor: pointer;
 }
 
 .player_status_row {

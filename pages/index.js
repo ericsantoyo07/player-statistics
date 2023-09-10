@@ -429,7 +429,7 @@ export default function Home() {
                 <div className={styles.player_status_row}>
                   {
                     getTeamByID(player.playerData.teamID) ?
-                      <img className={styles.player_team_image} src={getTeamImageSource(getTeamByID(player.playerData.teamID)?.image)} />
+                      <img className={styles.player_team_image} src={getTeamImageSource(getTeamByID(player.playerData.teamID)?.image)} onClick={() => { router.push(`/team/${player.playerData.teamID}`) }} />
                       :
                       <div></div>
                   }

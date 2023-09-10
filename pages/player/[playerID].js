@@ -66,6 +66,8 @@ function getProperStatus(status) {
 
 function PlayerCard({ player, showingTab = TAB_TYPE.DEFAULT, team }) {
 
+    const router = useRouter();
+
 
 
     return (
@@ -75,7 +77,9 @@ function PlayerCard({ player, showingTab = TAB_TYPE.DEFAULT, team }) {
                 <img className={styles.player_card_image} src={getImageSource(player.image)} />
                 {
                     team &&
-                    <img className={styles.player_card_team_image} src={getTeamImageSource(team.image)} />
+                    <img className={styles.player_card_team_image} src={getTeamImageSource(team.image)}
+                        onClick={() => router.push(`/team/${team.teamID}`)}
+                    />
                 }
             </div>
 
@@ -142,7 +146,7 @@ function PlayerCard({ player, showingTab = TAB_TYPE.DEFAULT, team }) {
                                 <div className={styles.player_card_info_title}>
                                     Team
                                 </div>
-                                <div className={styles.player_card_info_value}>
+                                <div className={styles.player_card_info_value} onClick={() => router.push(`/team/${team.teamID}`)}>
                                     {team?.name}
                                 </div>
                             </div>
@@ -187,7 +191,7 @@ function PlayerStatsCard({ stat }) {
                         {/* total points */}
                         <div className={styles.stat_week}></div>
                         <div className={styles.stat_week}></div>
-                        <div className={styles.stat_week}>{`Total : ` + stat.totalPoints}</div>
+                        <div className={styles.stat_week}>{`Points : ` + stat.totalPoints}</div>
 
 
                         <div className={styles.header}>Amount</div>
@@ -265,10 +269,6 @@ function PlayerStatsCard({ stat }) {
                         <div className={styles.data}>{stat.second_yellow_card[0]}</div>
                         <div className={styles.data}>Second Yellow Card</div>
                         <div className={styles.data}>{stat.second_yellow_card[1]}</div>
-                        {/* totalPoints */}
-                        <div className={styles.data}>{stat.totalPoints}</div>
-                        <div className={styles.data}>Total Points</div>
-                        <div className={styles.data}>{stat.totalPoints}</div>
                         {/* total_scoring_att */}
                         <div className={styles.data}>{stat.total_scoring_att[0]}</div>
                         <div className={styles.data}>Total Scoring Att</div>
