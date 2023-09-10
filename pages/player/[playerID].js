@@ -142,10 +142,16 @@ function PlayerStatsCard({ stat }) {
                 stat &&
                 <div className={styles.player_stats_card_stats}>
                     <div className={styles.statsTable}>
+
                         {/* week */}
                         <div className={styles.stat_week}></div>
                         <div className={styles.stat_week}></div>
                         <div className={styles.stat_week}>{`Week : ` + stat.week}</div>
+                        {/* total points */}
+                        <div className={styles.stat_week}></div>
+                        <div className={styles.stat_week}></div>
+                        <div className={styles.stat_week}>{`Total : ` + stat.totalPoints}</div>
+
 
                         <div className={styles.header}>Amount</div>
                         <div className={styles.header}>Stats</div>
