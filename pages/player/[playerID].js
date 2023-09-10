@@ -46,6 +46,22 @@ function getTranslatedPosition(position) {
     }
 }
 
+function getProperStatus(status) {
+    switch (status) {
+      case 'injured':
+        return 'Injured';
+      case 'out_of_league':
+        return 'Out of League';
+      case 'doubtful':
+        return 'Doubt';
+      case 'ok':
+        return 'Available';
+      case 'default':
+        return 'All';
+      default:
+        return status;
+    }
+  }
 
 
 function PlayerCard({ player, showingTab = TAB_TYPE.DEFAULT, team }) {
@@ -108,6 +124,30 @@ function PlayerCard({ player, showingTab = TAB_TYPE.DEFAULT, team }) {
                                 {player.averagePoints}
                             </div>
                         </div>
+                    </div>
+
+                    <div className={styles.player_card_info_row}>
+                        <div className={styles.player_card_info_container_left}>
+                            <div className={styles.player_card_info_value_title}>
+                                Status
+                            </div>
+                            <div className={styles.player_card_info_value}>
+                                {getProperStatus(player.status)}
+                            </div>
+                        </div>
+
+                        {
+                            team &&
+                            <div className={styles.player_card_info_container_right}>
+                                <div className={styles.player_card_info_title}>
+                                    Team
+                                </div>
+                                <div className={styles.player_card_info_value}>
+                                    {team?.name}
+                                </div>
+                            </div>
+                        }
+
                     </div>
 
                 </div>
