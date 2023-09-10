@@ -217,6 +217,15 @@
     background-image: url(/bg.jpg);
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.title {
+    background-color: #00bfa640;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .control_bar {

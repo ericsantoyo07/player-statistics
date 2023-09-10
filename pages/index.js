@@ -384,7 +384,9 @@ export default function Home() {
       }
 
 
-      <div className={styles.background} />
+      <div className={styles.background}>
+        <h1 className={styles.title}>Fantasy Football</h1>
+      </div>
 
       <div className={styles.control_bar}>
         {
