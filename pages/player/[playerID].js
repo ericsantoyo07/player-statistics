@@ -404,7 +404,7 @@ const Player = () => {
                 <p>
                     selectedWeek
                 </p>
-                <PlayerCard player={player} setShowingTab={setShowingTab} showingTab={showingTab} team={team} />
+                <PlayerCard player={player} showingTab={showingTab} team={team} />
                 {
                     showingTab === TAB_TYPE.SHOW_STATS &&
                     <PlayerStatsCard stat={selectedWeekStats} />
@@ -413,7 +413,7 @@ const Player = () => {
                     showingTab === TAB_TYPE.SHOW_GRAPH &&
                     <PlayerPriceGraph player={player} isSmallDevice={isSmallDevice} />
                 }
-                <TabChanger showingTab={showingTab} />
+                <TabChanger showingTab={showingTab} setShowingTab={setShowingTab} />
             </div>
         )
 
