@@ -141,7 +141,7 @@ export default function Home() {
       case 'injured':
         return 'Injured';
       case 'out_of_league':
-        return 'Out of League';
+        return 'Out of league';
       case 'doubtful':
         return 'Doubt';
       case 'ok':
@@ -306,6 +306,15 @@ export default function Home() {
     fetchData();
   }, [])
 
+  // useEffect(() => {
+
+  //   if (teams?.length > 0) {
+  //     console.log('setting selected team to ', teams[0].teamID);
+  //     setSelectedTeam(teams[0].teamID);
+  //   }
+
+  // }, [teams]);
+
 
   return (
     <div className={styles.Home}>
@@ -396,7 +405,7 @@ export default function Home() {
         {
           /* create a teams dropdown if teams are loaded */
           teams.length > 0 && (
-            <select onChange={(e) => { console.log(e.target.value); setSelectedTeam(e.target.value) }}>
+            <select value={selectedTeam} onChange={(e) => { console.log(e.target.value); setSelectedTeam(e.target.value) }}>
               {
                 getTeamsOptions(teams).map((team) => {
                   return (

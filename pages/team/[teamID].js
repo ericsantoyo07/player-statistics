@@ -39,7 +39,7 @@ function getProperStatus(status) {
         case 'injured':
             return 'Injured';
         case 'out_of_league':
-            return 'Out of League';
+            return 'Out of league'; 
         case 'doubtful':
             return 'Doubt';
         case 'ok':

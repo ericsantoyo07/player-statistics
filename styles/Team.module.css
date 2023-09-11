@@ -108,6 +108,7 @@
 
 .card {
     width: 100%;
+    max-width: 22.5vw;
     background-color: #111111;
     color: white;
     height: 100%;
@@ -205,6 +206,9 @@
 
     .team_players {
         grid-template-columns: 1fr;
+    }
+    .card {
+        max-width: 90vw;
     }
 
     .team_card {
