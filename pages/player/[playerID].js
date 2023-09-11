@@ -116,7 +116,7 @@ function PlayerCard({ player, showingTab = TAB_TYPE.DEFAULT, team }) {
                                 Value
                             </div>
                             <div className={styles.player_card_info_value}>
-                                {player.marketValue}
+                                €{player.marketValue}
                             </div>
                         </div>
 
@@ -125,7 +125,8 @@ function PlayerCard({ player, showingTab = TAB_TYPE.DEFAULT, team }) {
                                 Average Points
                             </div>
                             <div className={styles.player_card_info_value}>
-                                {player.averagePoints}
+                                {/* restrict to 2 decimal places */}
+                                {player.averagePoints?.toFixed(2)}
                             </div>
                         </div>
                     </div>
