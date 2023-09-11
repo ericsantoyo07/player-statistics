@@ -201,18 +201,40 @@
 
 /* Mobile screen */
 
-@media only screen and (max-width: 768px) {
 
-
-    .team_players {
-        grid-template-columns: 1fr;
-    }
-    .card {
-        max-width: 90vw;
-    }
+/* different media queries for different screen sizes */
+@media only screen and (max-width: 1300px) {
 
     .team_card {
         width: calc(100% - 40px);
     }
 
+    .team_players {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .card {
+        max-width: 30vw;
+    }
+}
+
+
+@media only screen and (max-width: 980px) {
+    .team_players {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .card {
+        max-width: 45vw;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .team_players {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        max-width: 90vw;
+    }
 }
