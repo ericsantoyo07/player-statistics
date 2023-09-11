@@ -112,6 +112,8 @@ export default function Home() {
         return 'Mid';
       case 'Delantero':
         return 'Str';
+      case 'Entrenador':
+        return 'Coach';
       default:
         return position;
     }

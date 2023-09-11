@@ -41,6 +41,8 @@ function getTranslatedPosition(position) {
             return 'Mid';
         case 'Delantero':
             return 'Str';
+        case 'Entrenador':
+            return 'Coach';
         default:
             return position;
     }

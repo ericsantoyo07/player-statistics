@@ -378,7 +378,8 @@
 }
 
 .name {
-    max-width: max-content;
+    width: 40%;
+    overflow-wrap: break-word;
     font-weight: bolder;
     font-size: larger;
 }
