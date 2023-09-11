@@ -1,4 +1,4 @@
-import { getAllStats, getPlayersByTeamID, getTeamByTeamID } from '@/database/client';
+import { getPlayersByTeamID, getTeamByTeamID } from '@/database/client';
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/Team.module.css'
 import { useRouter } from 'next/router';
@@ -39,7 +39,7 @@ function getProperStatus(status) {
         case 'injured':
             return 'Injured';
         case 'out_of_league':
-            return 'Out of league'; 
+            return 'Out of league';
         case 'doubtful':
             return 'Doubt';
         case 'ok':
