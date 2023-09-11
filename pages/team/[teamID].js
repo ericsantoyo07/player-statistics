@@ -118,7 +118,7 @@ function GoBack() {
 const Team = () => {
 
     const [team, setTeam] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [teamID, setTeamID] = useState(null);
     const [players, setPlayers] = useState(null);
     const router = useRouter();
