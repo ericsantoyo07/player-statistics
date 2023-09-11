@@ -478,6 +478,11 @@
         justify-content:center;
     }
 
+    .overlay_bar>button {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
 }
 
 
