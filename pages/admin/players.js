@@ -247,9 +247,13 @@ const Players = () => {
             let positionID = data[i].positionId;
             let status = data[i].playerStatus;
             let teamID = data[i].team?.id ? parseInt(data[i].team.id) : null;
-            let image = findImage(data[i].images);
+            let image = '/playerImages/' + playerID + '.png';
             let points = data[i].points;
             let marketValues = data[i].marketValues;
+
+            if (status === "out_of_league") {
+                continue;
+            }
 
 
             const player = {
@@ -285,35 +289,83 @@ const Players = () => {
     }
 
     async function getPlayers() {
+        const MAX_CONCURRENT_REQUESTS = 70; // Adjust this as needed
         let players = [];
+        const promises = [];
+
         for (let playerId = currentIndex; playerId < endingIndex; playerId++) {
-            const data = await fetchData(playerId);
-            const marketValues = await fetchMarketValues(playerId);
-           
-            setCurrentIndex(playerId);
-            if (data) {
-                // add market values to the data object
-                data.marketValues = marketValues;
-                players.push(data);
-                console.log(data);
-                console.log("Player name: " + data.name);
-            }
-            else {
-                console.log("Player with id " + playerId + " not found");
+            promises.push(fetchData(playerId));
+
+            if (promises.length >= MAX_CONCURRENT_REQUESTS) {
+                // If we reach the maximum number of concurrent requests, await them and reset the array
+                const playerDataArray = await Promise.all(promises);
+                setProgressPercentage(12);
+
+                const marketValuePromises = playerDataArray.map((data, index) => {
+                    if (data) {
+                        return fetchMarketValues(data.id);
+                    }
+                    return null;
+                });
+
+                const marketValuesArray = await Promise.all(marketValuePromises);
+
+                for (let i = 0; i < playerDataArray.length; i++) {
+                    const data = playerDataArray[i];
+                    const marketValues = marketValuesArray[i];
+
+                    if (data) {
+                        data.marketValues = marketValues;
+                        players.push(data);
+                        console.log(data);
+                        console.log("Player name: " + data.name);
+                    } else {
+                    }
+                }
+
+                // Reset promises array
+                promises.length = 0;
             }
         }
-        // need to reformate players data
+
+        // Process any remaining promises
+        if (promises.length > 0) {
+            const playerDataArray = await Promise.all(promises);
+            setProgressPercentage(12);
+
+            const marketValuePromises = playerDataArray.map((data, index) => {
+                if (data) {
+                    return fetchMarketValues(data.id);
+                }
+                return null;
+            });
+
+            const marketValuesArray = await Promise.all(marketValuePromises);
+
+            for (let i = 0; i < playerDataArray.length; i++) {
+                const data = playerDataArray[i];
+                const marketValues = marketValuesArray[i];
+
+                if (data) {
+                    data.marketValues = marketValues;
+                    players.push(data);
+                    console.log(data);
+                    console.log("Player name: " + data.name);
+                } else {
+                }
+            }
+        }
+
+        // Continue with the rest of your logic as before
         const { players: playersData, stats: statsData } = splitPlayersData(players);
         console.log('players: ', playersData);
         console.log('stats: ', statsData);
-        //adding players to database
+
         await addPlayers(playersData);
-        //adding stats to database
         await addStats(statsData);
+
         setCurrentState(ADMIN_REQUEST_STATUS.IDLE);
     }
-
-
 
 
 
@@ -368,15 +420,6 @@ const Players = () => {
                     {
                         (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) &&
                         <div className={styles.progress}>
-
-                            <h3>
-                                {`Completed ${currentIndex - startingIndex} of ${endingIndex - startingIndex} requests`}
-                            </h3>
-                            <ProgressBar
-                                completed={parseInt(progressPercentage)}
-                                customLabel={`${parseInt(progressPercentage)}` + "%"}
-                                bgColor="#558680"
-                            />
                         </div>
                     }
                     <div className={styles.admin_player_button_container}>

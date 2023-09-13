@@ -143,8 +143,6 @@ const Schedules = () => {
 
 
 
-
-
     // Call getPlayers when the component mounts or when currentIndex, endingIndex, or currentState change
     useEffect(() => {
         if (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) {
@@ -192,15 +190,6 @@ const Schedules = () => {
                     {
                         (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) &&
                         <div className={styles.progress}>
-
-                            <h3>
-                                {`Completed ${currentIndex - startingIndex} of ${endingIndex - startingIndex} requests`}
-                            </h3>
-                            <ProgressBar
-                                completed={parseInt(progressPercentage)}
-                                customLabel={`${parseInt(progressPercentage)}` + "%"}
-                                bgColor="#558680"
-                            />
                         </div>
                     }
                     <div className={styles.admin_player_button_container}>

@@ -53,11 +53,12 @@ const Teams = () => {
 
         for (let i = 0; i < data.length; i++) {
             const team = data[i];
+            const image = '/teamLogos/' + team.slug + '.png';
             const teamObject = {
                 teamID: parseInt(team.id),
                 name: team.name,
                 nickname: team.shortName,
-                image: team.badgeColor,
+                image: image,
             }
             teams.push(teamObject);
         }
@@ -128,15 +129,6 @@ const Teams = () => {
                     {
                         (currentState === ADMIN_REQUEST_STATUS.IN_PROGRESS) &&
                         <div className={styles.progress}>
-
-                            <h3>
-                                {`Getting Teams Data from API`}
-                            </h3>
-                            <ProgressBar
-                                completed={parseInt(progressPercentage)}
-                                customLabel={`${parseInt(progressPercentage)}` + "%"}
-                                bgColor="#558680"
-                            />
                         </div>
                     }
                     <div className={styles.admin_player_button_container}>
