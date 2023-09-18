@@ -250,29 +250,32 @@ const Players = () => {
     let marketValues = data[i].marketValues;
 
     if (status === "out_of_league") {
-      continue;
-    }
+        continue;
+      }
 
-    // Calculate lastMarketChange
-    const lastMarketValue = marketValues[marketValues.length - 1]?.marketValue || 0;
-    const secondToLastMarketValue = marketValues[marketValues.length - 2]?.marketValue || 0;
-    const lastMarketChange = lastMarketValue - secondToLastMarketValue;
+      // Calculate lastMarketChange
+      const lastMarketValue =
+        marketValues[marketValues.length - 1]?.marketValue || 0;
+      const secondToLastMarketValue =
+        marketValues[marketValues.length - 2]?.marketValue || 0;
+      const lastMarketChange = lastMarketValue - secondToLastMarketValue;
 
-    const player = {
-      playerID: playerID,
-      name: name,
-      nickname: nickname,
-      status: status,
-      position: position,
-      positionID: positionID,
-      marketValue: marketValue,
-      averagePoints: averagePoints,
-      points: points,
-      teamID: teamID,
-      image: image,
-      marketValues: marketValues,
-      lastMarketChange: lastMarketChange, // Add the calculated value here
-    }
+      const player = {
+        playerID: playerID,
+        name: name,
+        nickname: nickname,
+        status: status,
+        position: position,
+        positionID: positionID,
+        marketValue: marketValue,
+        averagePoints: averagePoints,
+        points: points,
+        teamID: teamID,
+        image: image,
+        marketValues: marketValues,
+        lastMarketChange: lastMarketChange, // Add the calculated value here
+        previousMarketValue: secondToLastMarketValue,
+      };
 
     const stats = formatPlayerStats(data[i].playerStats, playerID);
 
