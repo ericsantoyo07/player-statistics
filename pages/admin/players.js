@@ -232,61 +232,59 @@ const Players = () => {
 
 
     function splitPlayersData(data) {
-        let players = [];
-        let allStatistics = [];
+  let players = [];
+  let allStatistics = [];
 
+  for (let i = 0; i < data.length; i++) {
+    let playerID = parseInt(data[i].id);
+    let averagePoints = data[i].averagePoints;
+    let marketValue = data[i].marketValue;
+    let name = data[i].name;
+    let nickname = data[i].nickname;
+    let position = data[i].position;
+    let positionID = data[i].positionId;
+    let status = data[i].playerStatus;
+    let teamID = data[i].team?.id ? parseInt(data[i].team.id) : null;
+    let image = '/playerImages/' + playerID + '.png';
+    let points = data[i].points;
+    let marketValues = data[i].marketValues;
 
-        for (let i = 0; i < data.length; i++) {
-
-            let playerID = parseInt(data[i].id);
-            let averagePoints = data[i].averagePoints;
-            let marketValue = data[i].marketValue;
-            let name = data[i].name;
-            let nickname = data[i].nickname;
-            let position = data[i].position;
-            let positionID = data[i].positionId;
-            let status = data[i].playerStatus;
-            let teamID = data[i].team?.id ? parseInt(data[i].team.id) : null;
-            let image = '/playerImages/' + playerID + '.png';
-            let points = data[i].points;
-            let marketValues = data[i].marketValues;
-
-            if (status === "out_of_league") {
-                continue;
-            }
-
-
-            const player = {
-                playerID: playerID,
-                name: name,
-                nickname: nickname,
-                status: status,
-                position: position,
-                positionID: positionID,
-                marketValue: marketValue,
-                averagePoints: averagePoints,
-                points: points,
-                teamID: teamID,
-                image: image,
-                marketValues: marketValues
-            }
-
-            const stats = formatPlayerStats(data[i].playerStats, playerID);
-
-
-
-
-
-            players.push(player);
-            allStatistics.push(...stats);
-        }
-
-
-        return {
-            players: players,
-            stats: allStatistics
-        }
+    if (status === "out_of_league") {
+      continue;
     }
+
+    // Calculate lastMarketChange
+    const lastMarketValue = marketValues[marketValues.length - 1]?.marketValue || 0;
+    const secondToLastMarketValue = marketValues[marketValues.length - 2]?.marketValue || 0;
+    const lastMarketChange = lastMarketValue - secondToLastMarketValue;
+
+    const player = {
+      playerID: playerID,
+      name: name,
+      nickname: nickname,
+      status: status,
+      position: position,
+      positionID: positionID,
+      marketValue: marketValue,
+      averagePoints: averagePoints,
+      points: points,
+      teamID: teamID,
+      image: image,
+      marketValues: marketValues,
+      lastMarketChange: lastMarketChange, // Add the calculated value here
+    }
+
+    const stats = formatPlayerStats(data[i].playerStats, playerID);
+
+    players.push(player);
+    allStatistics.push(...stats);
+  }
+
+  return {
+    players: players,
+    stats: allStatistics
+  }
+}
 
     async function getPlayers() {
         const MAX_CONCURRENT_REQUESTS = 70; // Adjust this as needed
