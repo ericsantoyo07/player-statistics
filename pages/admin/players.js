@@ -245,9 +245,11 @@ const Players = () => {
     let positionID = data[i].positionId;
     let status = data[i].playerStatus;
     let teamID = data[i].team?.id ? parseInt(data[i].team.id) : null;
+    let teamName = data[i].team?.name ? parseInt(data[i].team.name) : null;
     let image = '/playerImages/' + playerID + '.png';
     let points = data[i].points;
     let marketValues = data[i].marketValues;
+    
 
     if (status === "out_of_league") {
         continue;
@@ -271,6 +273,7 @@ const Players = () => {
         averagePoints: averagePoints,
         points: points,
         teamID: teamID,
+        teamName: teamName,
         image: image,
         marketValues: marketValues,
         lastMarketChange: lastMarketChange, // Add the calculated value here
