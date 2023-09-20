@@ -245,7 +245,7 @@ const Players = () => {
     let positionID = data[i].positionId;
     let status = data[i].playerStatus;
     let teamID = data[i].team?.id ? parseInt(data[i].team.id) : null;
-    let teamName = data[i].team?.name ? parseInt(data[i].team.name) : null;
+    let teamName = data[i].team?.name ? (data[i].team.name) : null;
     let image = '/playerImages/' + playerID + '.png';
     let points = data[i].points;
     let marketValues = data[i].marketValues;
