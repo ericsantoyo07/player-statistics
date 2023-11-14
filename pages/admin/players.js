@@ -230,16 +230,12 @@ const Players = () => {
 
 function capitalizeWords(str) {
   return str
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Normalize and remove diacritics
     .split(' ')
-    .map(word => 
-      word.charAt(0).toUpperCase() + 
-      word.slice(1)
-           .normalize('NFD')
-           .replace(/[\u0300-\u036f]/g, '')
-           .toLowerCase()
-    )
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(' ');
 }
+
 
 
 
@@ -256,8 +252,9 @@ function capitalizeWords(str) {
     let marketValue = data[i].marketValue;
     let name = data[i].name;
     let nickname = data[i].nickname;
-    // Normalize and capitalize each word in the nickname
-    nickname = capitalizeWords(nickname);
+    if (typeof nickname === 'string') {
+      nickname = capitalizeWords(nickname);
+    }
     let position = data[i].position;
     let positionID = data[i].positionId;
     let status = data[i].playerStatus;
