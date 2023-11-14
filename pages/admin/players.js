@@ -228,16 +228,14 @@ const Players = () => {
     }
 
 
-function normalizeAndCapitalize(str) {
-  if (typeof str !== 'string') {
-    return '';
-  }
-  // Normalize the string to remove accents and diacritics
-  let normalizedStr = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  // Capitalize the first letter and lower case the rest of the string
-  normalizedStr = normalizedStr.charAt(0).toUpperCase() + normalizedStr.slice(1).toLowerCase();
-  return normalizedStr;
+function normalizeString(str) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 }
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 
 
     function splitPlayersData(data) {
@@ -250,6 +248,11 @@ function normalizeAndCapitalize(str) {
     let marketValue = data[i].marketValue;
     let name = data[i].name;
     let nickname = data[i].nickname;
+      // Normalize and capitalize the nickname
+      if (typeof nickname === 'string') {
+        nickname = normalizeString(nickname);
+        nickname = capitalizeFirstLetter(nickname);
+      }
     let position = data[i].position;
     let positionID = data[i].positionId;
     let status = data[i].playerStatus;
@@ -271,13 +274,12 @@ function normalizeAndCapitalize(str) {
         marketValues[marketValues.length - 2]?.marketValue || 0;
       const lastMarketChange = lastMarketValue - secondToLastMarketValue;
 
-      // Normalize and capitalize the nickname
-    const normalizedNickname = normalizeAndCapitalize(data[i].nickname);
+ 
       
       const player = {
         playerID: playerID,
         name: name,
-        nickname: normalizedNickname,
+        nickname: nickname,
         status: status,
         position: position,
         positionID: positionID,
