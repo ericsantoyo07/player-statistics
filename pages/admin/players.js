@@ -232,8 +232,14 @@ function normalizeString(str) {
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 }
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+function capitalizeWords(string) {
+  if (typeof string !== 'string') return '';
+  return string
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 }
 
 
@@ -248,11 +254,8 @@ function capitalizeFirstLetter(string) {
     let marketValue = data[i].marketValue;
     let name = data[i].name;
     let nickname = data[i].nickname;
-      // Normalize and capitalize the nickname
-      if (typeof nickname === 'string') {
-        nickname = normalizeString(nickname);
-        nickname = capitalizeFirstLetter(nickname);
-      }
+    // Normalize and capitalize each word in the nickname
+    nickname = capitalizeWords(nickname);
     let position = data[i].position;
     let positionID = data[i].positionId;
     let status = data[i].playerStatus;
