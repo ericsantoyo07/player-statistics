@@ -228,7 +228,16 @@ const Players = () => {
     }
 
 
-
+function normalizeAndCapitalize(str) {
+  if (typeof str !== 'string') {
+    return '';
+  }
+  // Normalize the string to remove accents and diacritics
+  let normalizedStr = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  // Capitalize the first letter and lower case the rest of the string
+  normalizedStr = normalizedStr.charAt(0).toUpperCase() + normalizedStr.slice(1).toLowerCase();
+  return normalizedStr;
+}
 
 
     function splitPlayersData(data) {
@@ -262,10 +271,13 @@ const Players = () => {
         marketValues[marketValues.length - 2]?.marketValue || 0;
       const lastMarketChange = lastMarketValue - secondToLastMarketValue;
 
+      // Normalize and capitalize the nickname
+    const normalizedNickname = normalizeAndCapitalize(data[i].nickname);
+      
       const player = {
         playerID: playerID,
         name: name,
-        nickname: nickname,
+        nickname: normalizedNickname,
         status: status,
         position: position,
         positionID: positionID,
