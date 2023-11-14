@@ -229,16 +229,13 @@ const Players = () => {
 
 
 function normalizeString(str) {
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
 function capitalizeWords(string) {
-  if (typeof string !== 'string') return '';
   return string
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
     .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map(word => word ? normalizeString(word)[0].toUpperCase() + normalizeString(word).slice(1) : '')
     .join(' ');
 }
 
