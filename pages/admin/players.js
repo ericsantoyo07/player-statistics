@@ -234,11 +234,14 @@ function normalizeString(str) {
 
 function capitalizeWords(str) {
   return str
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .map((word) => 
+      word.normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Normalize each word separately
+      .charAt(0).toUpperCase() + word.slice(1).toLowerCase() // Capitalize the first letter of each word
+    )
     .join(' ');
 }
+
 
 
 
@@ -247,16 +250,12 @@ function capitalizeWords(str) {
   let players = [];
   let allStatistics = [];
 
-  for (let i = 0; i < data.length; i++) {
+   for (let i = 0; i < data.length; i++) {
     let playerID = parseInt(data[i].id);
     let averagePoints = data[i].averagePoints;
     let marketValue = data[i].marketValue;
     let name = data[i].name;
     let nickname = data[i].nickname;
-    // Normalize and capitalize each word in the nickname
-    if (typeof nickname === 'string') {
-      nickname = capitalizeWords(nickname);
-    }
     let position = data[i].position;
     let positionID = data[i].positionId;
     let status = data[i].playerStatus;
@@ -271,6 +270,11 @@ function capitalizeWords(str) {
         continue;
       }
 
+       // Normalize and capitalize each word in the nickname
+    if (typeof nickname === 'string') {
+      nickname = capitalizeWords(nickname);
+    }
+       
       // Calculate lastMarketChange
       const lastMarketValue =
         marketValues[marketValues.length - 1]?.marketValue || 0;
